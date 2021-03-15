@@ -1,0 +1,283 @@
+extends KinematicBody2D
+
+const TARGET_FPS = 60
+
+var gravity : int = 30
+var y_force : int = gravity
+var movement : Vector2 = Vector2.ZERO
+
+var accel : int = 14
+var decel : int = accel * 2
+var max_speed : int = 400
+var max_air_speed : int = max_speed * .8
+var wall_impulse : int = 0
+var wall_slip : int = 0
+var wall_collisions : int = 0
+var deadzone_speed : float = 3
+var jump_force : int = 900
+
+
+var direction : int = RIGHT
+var wall_direction : int = RIGHT
+
+enum {
+	LEFT = -1,
+	RIGHT = 1
+}
+
+var air_accel : int = accel * .8
+
+var pressed_jump : bool = false
+
+
+var state : int = IDLE
+enum {
+	IDLE,
+	WALKING,
+	JUMPING,
+	FALLING,
+	ATTACKING,
+	WALL_GRABBING,
+	DASHING
+}
+
+signal state_changed(state)
+
+
+func _ready() -> void:
+	if get_parent().has_node("player_spawn"):
+		position = get_parent().get_node("player_spawn").position
+	
+	# camera
+	var cam_limit_1 : Position2D = get_parent().get_node("cam_limit_left_top")
+	var cam_limit_2 : Position2D = get_parent().get_node("cam_limit_right_bottom")
+	if cam_limit_1 != null && cam_limit_2 != null:
+		$camera.limit_left = cam_limit_1.position.x
+		$camera.limit_top = cam_limit_1.position.y
+		$camera.limit_right = cam_limit_2.position.x
+		$camera.limit_bottom = cam_limit_2.position.y
+	
+	#label
+	$label.text = str(state)
+
+
+func check_ground() -> bool:
+	return is_on_floor()
+
+
+func check_direction():
+	if Input.is_action_pressed("walk_left"):
+		direction = LEFT
+	if Input.is_action_pressed("walk_right"):
+		direction = RIGHT
+
+
+func _physics_process(delta) -> void:
+	
+	$sprite.flip_h = true if direction == LEFT else false
+	
+	match state:
+		IDLE:
+			idle(delta)
+			$label.text = "IDLE"
+		WALKING:
+			walk(delta)
+			$label.text = "WALKING"
+		JUMPING:
+			jump(delta)
+			$label.text = "JUMPING"
+		FALLING:
+			fall(delta)
+			$label.text = "FALLING"
+		ATTACKING:
+			attack(delta)
+		WALL_GRABBING:
+			wall_grab(delta)
+			$label.text = "WALL_GRABBING"
+		DASHING:
+			dash(delta)
+			$label.text = "DASHING"
+	
+	movement.y += y_force
+	movement = move_and_slide(movement * delta * TARGET_FPS, Vector2.UP, true)
+
+
+func _input(event):
+	if Input.is_action_just_released("jump"):
+		pressed_jump = false
+
+
+func idle(delta) -> void:
+	wall_slip = 0
+	wall_impulse = 0
+	movement.x = 0
+	
+	if !check_ground():
+		state = FALLING
+	if Input.is_action_pressed("walk_left") || Input.is_action_pressed("walk_right"):
+		state = WALKING
+	if Input.is_action_just_pressed("jump"):
+		state = JUMPING
+	if Input.is_action_just_pressed("dash"):
+		$dash_timer.start()
+		state = DASHING
+
+
+func walk(delta) -> void:
+	check_direction()
+	wall_slip = 0
+	wall_impulse = 0
+	var input_run : bool = Input.is_action_pressed("walk_left") || Input.is_action_pressed("walk_right")
+	
+	if !is_on_floor():
+		state = FALLING
+	
+	if !input_run:
+		
+		if abs(movement.x) > 0:
+			movement.x += decel * -direction
+		if abs(movement.x) <= decel: movement.x = 0
+		if movement.x == 0: state = IDLE
+	
+#	if Input.is_action_just_released("walk_left") || Input.is_action_just_released("walk_right"):
+#		state = IDLE
+	
+	if Input.is_action_pressed("walk_right"):
+		if movement.x < 0:
+			movement.x += accel * 3
+		movement.x += accel
+		
+	if Input.is_action_pressed("walk_left"):
+		if movement.x > 0:
+			movement.x -= accel * 3
+		movement.x -= accel
+		
+	
+	if movement.x >= max_speed:
+			movement.x = max_speed
+	if movement.x <= -max_speed:
+			movement.x = -max_speed
+	
+	if Input.is_action_just_pressed("jump"):
+		state = JUMPING
+	
+	if Input.is_action_just_pressed("dash"):
+		$dash_timer.start()
+		state = DASHING
+
+
+func jump(delta) -> void:
+	check_direction()
+	wall_slip = 0
+	if check_ground():
+		apply_jump()
+	if movement.y > 0:
+		state = FALLING
+	
+	if Input.is_action_pressed("walk_left"):
+		movement.x -= air_accel if movement.x <= 0 else air_accel * 4
+		if movement.x < -max_air_speed - wall_impulse:
+			movement.x = -max_air_speed - wall_impulse
+	if Input.is_action_pressed("walk_right"):
+		movement.x += air_accel if movement.x >= 0 else air_accel * 4
+		if movement.x > max_air_speed + wall_impulse:
+			movement.x = max_air_speed + wall_impulse
+	
+	
+	if Input.is_action_just_released("jump"):
+		movement.y /= 2
+
+
+func apply_jump():
+	movement.y = -jump_force
+
+
+func fall(delta) -> void:
+	wall_slip = 0
+	if check_ground():
+		state = IDLE if movement.x == 0 else WALKING
+	
+	if is_on_wall():
+		wall_direction = get_slide_collision(0).normal.x
+		y_force = gravity / 10
+		movement.y /= 2
+		state = WALL_GRABBING
+	
+	if Input.is_action_pressed("walk_left"):
+		movement.x -= air_accel if movement.x <= 0 else air_accel * 4
+		if movement.x < -max_air_speed - wall_impulse:
+			movement.x = -max_air_speed - wall_impulse
+	if Input.is_action_pressed("walk_right"):
+		movement.x += air_accel if movement.x >= 0 else air_accel * 4
+		if movement.x > max_air_speed + wall_impulse:
+			movement.x = max_air_speed + wall_impulse
+	
+	direction = RIGHT if movement.x > 0 else LEFT
+
+
+func attack(delta) -> void:
+	pass
+
+
+func wall_grab(delta) -> void:
+	var collisions = 0
+	for raycast in $left_wall.get_children():
+		collisions += raycast.get_overlapping_bodies().size()
+	for raycast in $right_wall.get_children():
+		collisions += raycast.get_overlapping_bodies().size()
+#	print(collisions)
+	
+	if collisions == 0:
+		y_force = gravity
+		state = FALLING
+	var slip_increase : int = 20
+	var max_slip : int = 300
+	wall_impulse = 100
+	if check_ground():
+		y_force = gravity
+		state = IDLE
+	
+	var player_direction : int = direction
+	if Input.is_action_pressed("walk_left"):
+		player_direction = LEFT
+	elif Input.is_action_pressed("walk_right"):
+		player_direction = RIGHT
+	
+	if player_direction != -wall_direction:
+		
+		wall_slip += slip_increase
+	
+	if wall_slip >= max_slip:
+		y_force = gravity
+		state = FALLING
+	
+	if Input.is_action_just_pressed("jump"):
+		y_force = gravity
+		movement.x = jump_force * wall_direction / 3
+		direction = RIGHT if movement.x > 0 else LEFT
+		apply_jump()
+		state = JUMPING
+	
+	if Input.is_action_just_pressed("dash"):
+		direction = wall_direction
+		$dash_timer.start()
+		state = DASHING
+
+
+func dash(delta):
+	movement.x = max_speed * 3 * direction
+	movement.y = 0
+	y_force = 0
+
+
+func _on_player_tree_entered() -> void:
+	ui_main.emit_signal("player_entered")
+
+
+func _on_player_tree_exited() -> void:
+	ui_main.emit_signal("player_exited")
+
+
+func _on_dash_timer_timeout():
+	y_force = gravity
+	state = WALKING

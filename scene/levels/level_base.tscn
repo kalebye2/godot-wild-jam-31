@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resources/tilesets/main_tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://resources/environments/main_environment.tres" type="Environment" id=2]
+[ext_resource path="res://scene/objects/player/player.tscn" type="PackedScene" id=3]
+
+[node name="level" type="Node2D"]
+
+[node name="bg" type="CanvasLayer" parent="."]
+
+[node name="bg1" type="ParallaxBackground" parent="bg"]
+
+[node name="tex" type="TextureRect" parent="bg/bg1"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg2" type="ParallaxBackground" parent="bg"]
+layer = -99
+
+[node name="tex" type="TextureRect" parent="bg/bg2"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg3" type="ParallaxBackground" parent="bg"]
+layer = -98
+
+[node name="tex" type="TextureRect" parent="bg/bg3"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="world_environment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 2 )
+
+[node name="tile_map" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+format = 1
+
+[node name="player" parent="." instance=ExtResource( 3 )]
+
+[node name="player_spawn" type="Position2D" parent="."]
+
+[node name="cam_limit_left_top" type="Position2D" parent="."]
+
+[node name="cam_limit_right_bottom" type="Position2D" parent="."]
