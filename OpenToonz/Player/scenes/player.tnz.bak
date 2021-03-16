@@ -82,7 +82,7 @@
             <property max="100" min="0" name="Left Padding" type="int" value="0"/>
             <property max="100" min="0" name="Right Padding" type="int" value="0"/>
             <property max="100" min="1" name="Scale" type="int" value="100"/>
-            <property name="Trim Empty Space" type="bool" value="true"/>
+            <property name="Trim Empty Space" type="bool" value="false"/>
             </formatProperties>
           <formatProperties ext="tif">
             <property name="Byte Ordering" type="enum" value="Mac">

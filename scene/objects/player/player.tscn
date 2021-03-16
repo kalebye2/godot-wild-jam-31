@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://scripts/objects/player.gd" type="Script" id=1]
 [ext_resource path="res://OpenToonz/Player/outputs/player.png" type="Texture" id=2]
@@ -197,15 +197,17 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=46]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=48]
+
 [sub_resource type="AnimationNodeStateMachine" id=20]
 states/dash/node = SubResource( 21 )
-states/dash/position = Vector2( 365.5, 221.5 )
+states/dash/position = Vector2( 469.75, 228.531 )
 states/fall/node = SubResource( 22 )
 states/fall/position = Vector2( 971.5, 55 )
 states/fall_prepare/node = SubResource( 23 )
 states/fall_prepare/position = Vector2( 670.75, 64.5 )
 states/idle/node = SubResource( 25 )
-states/idle/position = Vector2( 100, 77.25 )
+states/idle/position = Vector2( 70, 85.25 )
 states/jump/node = SubResource( 26 )
 states/jump/position = Vector2( 636.625, 176.5 )
 states/walk/node = SubResource( 40 )
@@ -214,13 +216,13 @@ states/walk_prepare/node = SubResource( 27 )
 states/walk_prepare/position = Vector2( 252.5, 21.625 )
 states/wall_grab/node = SubResource( 29 )
 states/wall_grab/position = Vector2( 962.5, 221.875 )
-transitions = [ "fall", "wall_grab", SubResource( 30 ), "fall_prepare", "fall", SubResource( 31 ), "idle", "walk_prepare", SubResource( 33 ), "wall_grab", "dash", SubResource( 35 ), "jump", "fall_prepare", SubResource( 36 ), "idle", "fall_prepare", SubResource( 37 ), "idle", "dash", SubResource( 38 ), "idle", "jump", SubResource( 39 ), "walk_prepare", "walk", SubResource( 41 ), "walk", "jump", SubResource( 42 ), "walk", "dash", SubResource( 44 ), "walk", "fall_prepare", SubResource( 45 ), "fall_prepare", "wall_grab", SubResource( 46 ) ]
+transitions = [ "fall", "wall_grab", SubResource( 30 ), "fall_prepare", "fall", SubResource( 31 ), "idle", "walk_prepare", SubResource( 33 ), "wall_grab", "dash", SubResource( 35 ), "jump", "fall_prepare", SubResource( 36 ), "idle", "fall_prepare", SubResource( 37 ), "idle", "dash", SubResource( 38 ), "idle", "jump", SubResource( 39 ), "walk_prepare", "walk", SubResource( 41 ), "walk", "jump", SubResource( 42 ), "walk", "dash", SubResource( 44 ), "walk", "fall_prepare", SubResource( 45 ), "fall_prepare", "wall_grab", SubResource( 46 ), "dash", "fall_prepare", SubResource( 48 ) ]
 start_node = "idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=10]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8.5, 29.7723 )
+extents = Vector2( 14.9523, 29.7723 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 4.16345, 26.0224 )
@@ -254,10 +256,8 @@ active = true
 parameters/playback = SubResource( 10 )
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+position = Vector2( -5.4555, 1.34151 )
 shape = SubResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="label" type="Label" parent="."]
 visible = false
@@ -281,6 +281,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="left_wall" type="Node2D" parent="."]
+position = Vector2( -11.2687, 0 )
 
 [node name="area_2d" type="Area2D" parent="left_wall"]
 position = Vector2( -14, 0 )

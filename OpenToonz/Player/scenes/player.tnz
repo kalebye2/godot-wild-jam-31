@@ -77,10 +77,10 @@
               <item value="Horizontal"/>
               <item value="Individual"/>
               </property>
-            <property max="100" min="0" name="Top Padding" type="int" value="0"/>
-            <property max="100" min="0" name="Bottom Padding" type="int" value="0"/>
-            <property max="100" min="0" name="Left Padding" type="int" value="0"/>
-            <property max="100" min="0" name="Right Padding" type="int" value="0"/>
+            <property max="100" min="0" name="Top Padding" type="int" value="2"/>
+            <property max="100" min="0" name="Bottom Padding" type="int" value="2"/>
+            <property max="100" min="0" name="Left Padding" type="int" value="2"/>
+            <property max="100" min="0" name="Right Padding" type="int" value="2"/>
             <property max="100" min="1" name="Scale" type="int" value="100"/>
             <property name="Trim Empty Space" type="bool" value="false"/>
             </formatProperties>

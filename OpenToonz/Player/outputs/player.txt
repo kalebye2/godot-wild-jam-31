@@ -1,13 +1,13 @@
 Total Images: 64
 Individual Image Width: 64
 Individual Image Height: 64
-Individual Image Width with Padding: 64
-Individual Image Height with Padding: 64
+Individual Image Width with Padding: 68
+Individual Image Height with Padding: 68
 Images Across: 8
 Images Down : 8
-Top Padding: 0
-Bottom Padding: 0
-Left Padding: 0
-Right Padding: 0
-Horizontal Space Between Images: 0
-Vertical Space Between Images: 0
+Top Padding: 2
+Bottom Padding: 2
+Left Padding: 2
+Right Padding: 2
+Horizontal Space Between Images: 4
+Vertical Space Between Images: 4

@@ -250,6 +250,12 @@ func attack(delta) -> void:
 
 
 func wall_grab(delta) -> void:
+	
+	if direction == LEFT:
+		$sprite.offset.x = -10
+	else:
+		$sprite.offset.x = 0
+	
 	var collisions = 0
 	for raycast in $left_wall.get_children():
 		collisions += raycast.get_overlapping_bodies().size()
@@ -279,6 +285,7 @@ func wall_grab(delta) -> void:
 	
 	if wall_slip >= max_slip:
 		y_force = gravity
+		$sprite.offset.x = 0
 		_change_state(FALLING)
 	
 	if Input.is_action_just_pressed("jump"):
@@ -286,11 +293,13 @@ func wall_grab(delta) -> void:
 		movement.x = jump_force * wall_direction / 3
 		direction = RIGHT if movement.x > 0 else LEFT
 		apply_jump()
+		$sprite.offset.x = 0
 		_change_state(JUMPING)
 	
 	if Input.is_action_just_pressed("dash"):
 		direction = wall_direction
 		$dash_timer.start()
+		$sprite.offset.x = 0
 		_change_state(DASHING)
 
 
