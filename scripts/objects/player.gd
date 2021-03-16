@@ -31,6 +31,7 @@ var pressed_jump : bool = false
 
 
 var state : int = IDLE
+var prev_state : int = IDLE
 enum {
 	IDLE,
 	WALKING,
@@ -38,10 +39,24 @@ enum {
 	FALLING,
 	ATTACKING,
 	WALL_GRABBING,
-	DASHING
+	DASHING,
+	DEAD
 }
 
-signal state_changed(state)
+var anim_state : Dictionary = {
+	IDLE : "idle",
+	WALKING : "walk",
+	JUMPING : "jump",
+	FALLING : "fall",
+	ATTACKING : "",
+	WALL_GRABBING : "wall_grab",
+	DASHING : "dash",
+}
+
+signal state_changed(prev_state, state)
+
+# animation state machine
+onready var anim_state_machine = $animation_tree.get("parameters/playback")
 
 
 func _ready() -> void:
@@ -59,6 +74,10 @@ func _ready() -> void:
 	
 	#label
 	$label.text = str(state)
+	
+	# connect state_changed to animation_player function
+	connect("state_changed", self, "_on_state_changed")
+	
 
 
 func check_ground() -> bool:
@@ -66,14 +85,17 @@ func check_ground() -> bool:
 
 
 func check_direction():
-	if Input.is_action_pressed("walk_left"):
-		direction = LEFT
-	if Input.is_action_pressed("walk_right"):
-		direction = RIGHT
+	if movement.x > 0 : direction = RIGHT
+	if movement.x < 0 : direction = LEFT
+
+
+func _change_state(next_state : int):
+	prev_state = state
+	state = next_state
+	emit_signal("state_changed", prev_state, state)
 
 
 func _physics_process(delta) -> void:
-	
 	$sprite.flip_h = true if direction == LEFT else false
 	
 	match state:
@@ -115,12 +137,13 @@ func idle(delta) -> void:
 	if !check_ground():
 		state = FALLING
 	if Input.is_action_pressed("walk_left") || Input.is_action_pressed("walk_right"):
-		state = WALKING
+		prev_state = state
+		_change_state(WALKING)
 	if Input.is_action_just_pressed("jump"):
-		state = JUMPING
+		_change_state(JUMPING)
 	if Input.is_action_just_pressed("dash"):
 		$dash_timer.start()
-		state = DASHING
+		_change_state(DASHING)
 
 
 func walk(delta) -> void:
@@ -130,14 +153,15 @@ func walk(delta) -> void:
 	var input_run : bool = Input.is_action_pressed("walk_left") || Input.is_action_pressed("walk_right")
 	
 	if !is_on_floor():
-		state = FALLING
+		_change_state(FALLING)
 	
 	if !input_run:
 		
 		if abs(movement.x) > 0:
 			movement.x += decel * -direction
 		if abs(movement.x) <= decel: movement.x = 0
-		if movement.x == 0: state = IDLE
+		if movement.x == 0:
+			_change_state(IDLE)
 	
 #	if Input.is_action_just_released("walk_left") || Input.is_action_just_released("walk_right"):
 #		state = IDLE
@@ -159,11 +183,11 @@ func walk(delta) -> void:
 			movement.x = -max_speed
 	
 	if Input.is_action_just_pressed("jump"):
-		state = JUMPING
+		_change_state(JUMPING)
 	
 	if Input.is_action_just_pressed("dash"):
 		$dash_timer.start()
-		state = DASHING
+		_change_state(DASHING)
 
 
 func jump(delta) -> void:
@@ -172,7 +196,7 @@ func jump(delta) -> void:
 	if check_ground():
 		apply_jump()
 	if movement.y > 0:
-		state = FALLING
+		_change_state(FALLING)
 	
 	if Input.is_action_pressed("walk_left"):
 		movement.x -= air_accel if movement.x <= 0 else air_accel * 4
@@ -195,24 +219,30 @@ func apply_jump():
 func fall(delta) -> void:
 	wall_slip = 0
 	if check_ground():
-		state = IDLE if movement.x == 0 else WALKING
+		if movement.x == 0:
+			_change_state(IDLE)
+		else:
+			_change_state(WALKING)
+#		state = IDLE if movement.x == 0 else WALKING
 	
 	if is_on_wall():
 		wall_direction = get_slide_collision(0).normal.x
 		y_force = gravity / 10
 		movement.y /= 2
-		state = WALL_GRABBING
+		_change_state(WALL_GRABBING)
 	
 	if Input.is_action_pressed("walk_left"):
+		direction = LEFT
 		movement.x -= air_accel if movement.x <= 0 else air_accel * 4
 		if movement.x < -max_air_speed - wall_impulse:
 			movement.x = -max_air_speed - wall_impulse
 	if Input.is_action_pressed("walk_right"):
+		direction = RIGHT
 		movement.x += air_accel if movement.x >= 0 else air_accel * 4
 		if movement.x > max_air_speed + wall_impulse:
 			movement.x = max_air_speed + wall_impulse
 	
-	direction = RIGHT if movement.x > 0 else LEFT
+#	direction = RIGHT if movement.x > 0 else LEFT
 
 
 func attack(delta) -> void:
@@ -229,13 +259,13 @@ func wall_grab(delta) -> void:
 	
 	if collisions == 0:
 		y_force = gravity
-		state = FALLING
+		_change_state(FALLING)
 	var slip_increase : int = 20
 	var max_slip : int = 300
 	wall_impulse = 100
 	if check_ground():
 		y_force = gravity
-		state = IDLE
+		_change_state(IDLE)
 	
 	var player_direction : int = direction
 	if Input.is_action_pressed("walk_left"):
@@ -249,19 +279,19 @@ func wall_grab(delta) -> void:
 	
 	if wall_slip >= max_slip:
 		y_force = gravity
-		state = FALLING
+		_change_state(FALLING)
 	
 	if Input.is_action_just_pressed("jump"):
 		y_force = gravity
 		movement.x = jump_force * wall_direction / 3
 		direction = RIGHT if movement.x > 0 else LEFT
 		apply_jump()
-		state = JUMPING
+		_change_state(JUMPING)
 	
 	if Input.is_action_just_pressed("dash"):
 		direction = wall_direction
 		$dash_timer.start()
-		state = DASHING
+		_change_state(DASHING)
 
 
 func dash(delta):
@@ -280,4 +310,11 @@ func _on_player_tree_exited() -> void:
 
 func _on_dash_timer_timeout():
 	y_force = gravity
-	state = WALKING
+	_change_state(WALKING)
+
+
+func _on_state_changed(prev_state, state):
+#	print("%s to %s" % [prev_state, state])
+	anim_state_machine.travel(anim_state[state])
+#	if anim_state_machine.get_current_node() == anim_state[prev_state]:
+#		anim_state_machine.travel(anim_state[state])
