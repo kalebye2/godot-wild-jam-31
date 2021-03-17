@@ -25,13 +25,17 @@ config/icon="res://icon.png"
 global_data="*res://scripts/globals/global_data.gd"
 player_data="*res://scripts/globals/player_data.gd"
 ui_main="*res://scene/singletons/ui_main.tscn"
+config="*res://scripts/globals/config.gd"
 
 [display]
 
 window/size/width=1280
 window/size/height=720
-window/stretch/mode="2d"
+window/size/resizable=false
+window/vsync/use_vsync=false
+window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
+window/stretch/shrink=3.0
 
 [input]
 
@@ -117,5 +121,5 @@ name_casing=2
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
-environment/default_clear_color=Color( 0, 0.0627451, 0.164706, 1 )
+environment/default_clear_color=Color( 0.407843, 0.529412, 0.721569, 1 )
 environment/default_environment="res://default_env.tres"

@@ -4,7 +4,7 @@
 [ext_resource path="res://OpenToonz/Player/outputs/player.png" type="Texture" id=2]
 [ext_resource path="res://theme/main_theme.tres" type="Theme" id=3]
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=1]
 resource_name = "dash"
 length = 0.25
 loop = true
@@ -22,7 +22,7 @@ tracks/0/keys = {
 "values": [ 56, 57, 58, 59, 60, 61 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=2]
 resource_name = "fall"
 length = 0.25
 loop = true
@@ -40,7 +40,7 @@ tracks/0/keys = {
 "values": [ 51, 52, 53, 54, 55 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=3]
 resource_name = "fall_prepare"
 length = 0.166667
 step = 0.0416667
@@ -74,7 +74,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 resource_name = "jump"
 length = 0.25
 loop = true
@@ -92,8 +92,7 @@ tracks/0/keys = {
 "values": [ 40, 41, 42, 43, 44, 45 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "walk"
+[sub_resource type="Animation" id=6]
 length = 0.5
 loop = true
 step = 0.0416667
@@ -110,8 +109,7 @@ tracks/0/keys = {
 "values": [ 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "walk_prepare"
+[sub_resource type="Animation" id=7]
 length = 0.166667
 step = 0.0416667
 tracks/0/type = "value"
@@ -127,7 +125,7 @@ tracks/0/keys = {
 "values": [ 24, 25, 26, 27 ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=8]
 resource_name = "wall_grab"
 length = 0.0833333
 loop = true
@@ -145,86 +143,86 @@ tracks/0/keys = {
 "values": [ 63, 63 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=21]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "dash"
 
-[sub_resource type="AnimationNodeAnimation" id=22]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "fall"
 
-[sub_resource type="AnimationNodeAnimation" id=23]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "fall_prepare"
 
-[sub_resource type="AnimationNodeAnimation" id=25]
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=26]
+[sub_resource type="AnimationNodeAnimation" id=13]
 animation = "jump"
 
-[sub_resource type="AnimationNodeAnimation" id=40]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "walk"
 
-[sub_resource type="AnimationNodeAnimation" id=27]
+[sub_resource type="AnimationNodeAnimation" id=15]
 animation = "walk_prepare"
 
-[sub_resource type="AnimationNodeAnimation" id=29]
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "wall_grab"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=30]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=31]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=33]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=35]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=36]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=37]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=38]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=39]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=41]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=42]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=44]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=45]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=46]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=48]
-
-[sub_resource type="AnimationNodeStateMachine" id=20]
-states/dash/node = SubResource( 21 )
+[sub_resource type="AnimationNodeStateMachine" id=31]
+states/dash/node = SubResource( 9 )
 states/dash/position = Vector2( 469.75, 228.531 )
-states/fall/node = SubResource( 22 )
+states/fall/node = SubResource( 10 )
 states/fall/position = Vector2( 971.5, 55 )
-states/fall_prepare/node = SubResource( 23 )
+states/fall_prepare/node = SubResource( 11 )
 states/fall_prepare/position = Vector2( 670.75, 64.5 )
-states/idle/node = SubResource( 25 )
+states/idle/node = SubResource( 12 )
 states/idle/position = Vector2( 70, 85.25 )
-states/jump/node = SubResource( 26 )
+states/jump/node = SubResource( 13 )
 states/jump/position = Vector2( 636.625, 176.5 )
-states/walk/node = SubResource( 40 )
+states/walk/node = SubResource( 14 )
 states/walk/position = Vector2( 471, 3.75 )
-states/walk_prepare/node = SubResource( 27 )
+states/walk_prepare/node = SubResource( 15 )
 states/walk_prepare/position = Vector2( 252.5, 21.625 )
-states/wall_grab/node = SubResource( 29 )
+states/wall_grab/node = SubResource( 16 )
 states/wall_grab/position = Vector2( 962.5, 221.875 )
-transitions = [ "fall", "wall_grab", SubResource( 30 ), "fall_prepare", "fall", SubResource( 31 ), "idle", "walk_prepare", SubResource( 33 ), "wall_grab", "dash", SubResource( 35 ), "jump", "fall_prepare", SubResource( 36 ), "idle", "fall_prepare", SubResource( 37 ), "idle", "dash", SubResource( 38 ), "idle", "jump", SubResource( 39 ), "walk_prepare", "walk", SubResource( 41 ), "walk", "jump", SubResource( 42 ), "walk", "dash", SubResource( 44 ), "walk", "fall_prepare", SubResource( 45 ), "fall_prepare", "wall_grab", SubResource( 46 ), "dash", "fall_prepare", SubResource( 48 ) ]
+transitions = [ "fall", "wall_grab", SubResource( 17 ), "fall_prepare", "fall", SubResource( 18 ), "idle", "walk_prepare", SubResource( 19 ), "wall_grab", "dash", SubResource( 20 ), "jump", "fall_prepare", SubResource( 21 ), "idle", "fall_prepare", SubResource( 22 ), "idle", "dash", SubResource( 23 ), "idle", "jump", SubResource( 24 ), "walk_prepare", "walk", SubResource( 25 ), "walk", "jump", SubResource( 26 ), "walk", "dash", SubResource( 27 ), "walk", "fall_prepare", SubResource( 28 ), "fall_prepare", "wall_grab", SubResource( 29 ), "dash", "fall_prepare", SubResource( 30 ) ]
 start_node = "idle"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=10]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=32]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=33]
 extents = Vector2( 14.9523, 29.7723 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=34]
 extents = Vector2( 4.16345, 26.0224 )
 
 [node name="player" type="KinematicBody2D"]
@@ -234,30 +232,30 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 8
 hframes = 8
-frame = 63
+frame = 15
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
-anims/dash = SubResource( 19 )
-anims/fall = SubResource( 8 )
-anims/fall_prepare = SubResource( 16 )
+anims/dash = SubResource( 1 )
+anims/fall = SubResource( 2 )
+anims/fall_prepare = SubResource( 3 )
 anims/idle = SubResource( 4 )
-anims/jump = SubResource( 7 )
-anims/walk = SubResource( 5 )
-anims/walk_prepare = SubResource( 6 )
-anims/wall_grab = SubResource( 18 )
+anims/jump = SubResource( 5 )
+anims/walk = SubResource( 6 )
+anims/walk_prepare = SubResource( 7 )
+anims/wall_grab = SubResource( 8 )
 
 [node name="animation_tree" type="AnimationTree" parent="."]
-tree_root = SubResource( 20 )
+tree_root = SubResource( 31 )
 anim_player = NodePath("../animation_player")
 active = true
-parameters/playback = SubResource( 10 )
+parameters/playback = SubResource( 32 )
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
 position = Vector2( -5.4555, 1.34151 )
-shape = SubResource( 2 )
+shape = SubResource( 33 )
 
 [node name="label" type="Label" parent="."]
 visible = false
@@ -287,7 +285,7 @@ position = Vector2( -11.2687, 0 )
 position = Vector2( -14, 0 )
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="left_wall/area_2d"]
-shape = SubResource( 3 )
+shape = SubResource( 34 )
 
 [node name="right_wall" type="Node2D" parent="."]
 
@@ -295,7 +293,12 @@ shape = SubResource( 3 )
 position = Vector2( 14, 0 )
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="right_wall/area_2d"]
-shape = SubResource( 3 )
+shape = SubResource( 34 )
+
+[node name="coyote_time" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 [connection signal="tree_entered" from="." to="." method="_on_player_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_player_tree_exited"]
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="coyote_time" to="." method="_on_coyote_time_timeout"]

@@ -65,6 +65,10 @@ margin_left = 0.0
 margin_top = 115.0
 margin_right = 332.0
 margin_bottom = 154.0
+focus_neighbour_top = NodePath("../exit")
+focus_neighbour_bottom = NodePath("../options")
+focus_next = NodePath("../options")
+focus_previous = NodePath("../exit")
 text = "Continue"
 
 [node name="options" parent="panel/list" instance=ExtResource( 1 )]
@@ -76,6 +80,10 @@ margin_left = 0.0
 margin_top = 158.0
 margin_right = 332.0
 margin_bottom = 197.0
+focus_neighbour_top = NodePath("../continue")
+focus_neighbour_bottom = NodePath("../exit")
+focus_next = NodePath("../exit")
+focus_previous = NodePath("../continue")
 text = "Options"
 
 [node name="exit" parent="panel/list" instance=ExtResource( 1 )]
@@ -87,6 +95,10 @@ margin_left = 0.0
 margin_top = 201.0
 margin_right = 332.0
 margin_bottom = 240.0
+focus_neighbour_top = NodePath("../options")
+focus_neighbour_bottom = NodePath("../continue")
+focus_next = NodePath("../continue")
+focus_previous = NodePath("../options")
 text = "Exit"
 
 [node name="options" parent="." instance=ExtResource( 4 )]

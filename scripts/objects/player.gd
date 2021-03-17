@@ -84,12 +84,20 @@ func check_ground() -> bool:
 	return is_on_floor()
 
 
-func check_direction():
+func check_direction() -> void:
 	if movement.x > 0 : direction = RIGHT
 	if movement.x < 0 : direction = LEFT
 
 
-func _change_state(next_state : int):
+func is_wall_colliding() -> bool:
+	var collisions = 0
+	for raycast in $left_wall.get_children():
+		collisions += raycast.get_overlapping_bodies().size()
+	for raycast in $right_wall.get_children():
+		collisions += raycast.get_overlapping_bodies().size()
+	return true if collisions > 0 else false
+
+func _change_state(next_state : int) -> void:
 	prev_state = state
 	state = next_state
 	emit_signal("state_changed", prev_state, state)
@@ -134,12 +142,14 @@ func idle(delta) -> void:
 	wall_impulse = 0
 	movement.x = 0
 	
-	if !check_ground():
-		state = FALLING
+	if !check_ground() && $coyote_time.is_stopped():
+		$coyote_time.start()
+#		state = FALLING
 	if Input.is_action_pressed("walk_left") || Input.is_action_pressed("walk_right"):
 		prev_state = state
 		_change_state(WALKING)
 	if Input.is_action_just_pressed("jump"):
+		apply_jump()
 		_change_state(JUMPING)
 	if Input.is_action_just_pressed("dash"):
 		$dash_timer.start()
@@ -152,8 +162,9 @@ func walk(delta) -> void:
 	wall_impulse = 0
 	var input_run : bool = Input.is_action_pressed("walk_left") || Input.is_action_pressed("walk_right")
 	
-	if !is_on_floor():
-		_change_state(FALLING)
+	if !is_on_floor() && $coyote_time.is_stopped():
+		$coyote_time.start()
+#		_change_state(FALLING)
 	
 	if !input_run:
 		
@@ -183,6 +194,7 @@ func walk(delta) -> void:
 			movement.x = -max_speed
 	
 	if Input.is_action_just_pressed("jump"):
+		apply_jump()
 		_change_state(JUMPING)
 	
 	if Input.is_action_just_pressed("dash"):
@@ -193,8 +205,8 @@ func walk(delta) -> void:
 func jump(delta) -> void:
 	check_direction()
 	wall_slip = 0
-	if check_ground():
-		apply_jump()
+#	if check_ground():
+#		apply_jump()
 	if movement.y > 0:
 		_change_state(FALLING)
 	
@@ -212,7 +224,7 @@ func jump(delta) -> void:
 		movement.y /= 2
 
 
-func apply_jump():
+func apply_jump() -> void:
 	movement.y = -jump_force
 
 
@@ -256,14 +268,14 @@ func wall_grab(delta) -> void:
 	else:
 		$sprite.offset.x = 0
 	
-	var collisions = 0
-	for raycast in $left_wall.get_children():
-		collisions += raycast.get_overlapping_bodies().size()
-	for raycast in $right_wall.get_children():
-		collisions += raycast.get_overlapping_bodies().size()
+#	var collisions = 0
+#	for raycast in $left_wall.get_children():
+#		collisions += raycast.get_overlapping_bodies().size()
+#	for raycast in $right_wall.get_children():
+#		collisions += raycast.get_overlapping_bodies().size()
 #	print(collisions)
 	
-	if collisions == 0:
+	if !is_wall_colliding():
 		y_force = gravity
 		_change_state(FALLING)
 	var slip_increase : int = 20
@@ -303,7 +315,7 @@ func wall_grab(delta) -> void:
 		_change_state(DASHING)
 
 
-func dash(delta):
+func dash(delta) -> void:
 	movement.x = max_speed * 3 * direction
 	movement.y = 0
 	y_force = 0
@@ -317,13 +329,19 @@ func _on_player_tree_exited() -> void:
 	ui_main.emit_signal("player_exited")
 
 
-func _on_dash_timer_timeout():
+func _on_dash_timer_timeout() -> void:
 	y_force = gravity
-	_change_state(WALKING)
+	movement.x = max_speed * direction
+	_change_state(FALLING)
 
 
-func _on_state_changed(prev_state, state):
-#	print("%s to %s" % [prev_state, state])
-	anim_state_machine.travel(anim_state[state])
+func _on_state_changed(prev_state, state) -> void:
+#	print("%s to %s" % [anim_state[prev_state], anim_state[state]])
+	anim_state_machine.travel(anim_state[self.state])
 #	if anim_state_machine.get_current_node() == anim_state[prev_state]:
 #		anim_state_machine.travel(anim_state[state])
+
+
+func _on_coyote_time_timeout():
+	if !check_ground() && movement.y >= 0 && prev_state != DASHING:
+		_change_state(FALLING)
