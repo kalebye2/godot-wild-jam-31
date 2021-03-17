@@ -3,7 +3,7 @@ extends Panel
 var base_res_width : int = ProjectSettings.get_setting("display/window/size/width")
 var base_res_height : int = ProjectSettings.get_setting("display/window/size/height")
 var res_multiplier : float = 1.0
-var res_multiplier_options : Array = [1.0, .5, .25]
+var res_multiplier_options : Array = [.5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0]
 var res_multiplier_index = 0
 
 func _ready():
@@ -57,6 +57,13 @@ func _on_btn_res_pressed():
 		res_multiplier_index += 1
 	else:
 		res_multiplier_index = 0
+		
+	var r_width : int = base_res_width * res_multiplier_options[res_multiplier_index]
+	var r_height : int = base_res_height * res_multiplier_options[res_multiplier_index]
+	
+	if r_width > OS.get_screen_size().x:
+		res_multiplier_index = 0
+	
 #	print(res_multiplier_options[res_multiplier_index])
 	config.res_height = base_res_height * res_multiplier_options[res_multiplier_index]
 	config.res_width = base_res_width * res_multiplier_options[res_multiplier_index]

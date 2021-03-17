@@ -22,7 +22,8 @@ func load_config():
 #	print(res_multiplier)
 	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_KEEP, resolution, res_multiplier)
 	get_tree().get_root().size = resolution
-	OS.window_size = resolution
+	if !OS.window_fullscreen:
+		OS.window_size = resolution
 	
 
 func save_config():
