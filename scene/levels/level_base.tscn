@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://resources/tilesets/main_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://resources/environments/main_environment.tres" type="Environment" id=2]
 [ext_resource path="res://scene/objects/player/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/objects/level_base.gd" type="Script" id=4]
 
 [node name="level" type="Node2D"]
+script = ExtResource( 4 )
 
 [node name="bg" type="CanvasLayer" parent="."]
 
@@ -51,3 +53,11 @@ format = 1
 [node name="cam_limit_left_top" type="Position2D" parent="."]
 
 [node name="cam_limit_right_bottom" type="Position2D" parent="."]
+
+[node name="cam_new_limits" type="Node" parent="."]
+
+[node name="left_top" type="Node" parent="cam_new_limits"]
+
+[node name="right_bottom" type="Node" parent="cam_new_limits"]
+
+[node name="exits" type="Node" parent="."]

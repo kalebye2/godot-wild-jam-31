@@ -60,8 +60,6 @@ onready var anim_state_machine = $animation_tree.get("parameters/playback")
 
 
 func _ready() -> void:
-	if get_parent().has_node("player_spawn"):
-		position = get_parent().get_node("player_spawn").position
 	
 	# camera
 	var cam_limit_1 : Position2D = get_parent().get_node("cam_limit_left_top")
@@ -343,5 +341,28 @@ func _on_state_changed(prev_state, state) -> void:
 
 
 func _on_coyote_time_timeout():
-	if !check_ground() && movement.y >= 0 && prev_state != DASHING:
+	if state == DASHING:
+		return
+	if !check_ground() && movement.y >= 0:
 		_change_state(FALLING)
+
+
+func _on_checkpoint_checker_area_entered(area):
+	area.get_parent().emit_signal('checkpoint_grabbed')
+
+func _on_cam_limits_changed():
+	var trans_interpolation : int = Tween.TRANS_SINE
+	var trans_ease : int = Tween.EASE_OUT
+	var trans_time : float = 2
+	var cam_limit_1 : Position2D = get_parent().get_node("cam_limit_left_top")
+	var cam_limit_2 : Position2D = get_parent().get_node("cam_limit_right_bottom")
+	if cam_limit_1 != null && cam_limit_2 != null:
+#		$camera.limit_left = cam_limit_1.position.x
+#		$camera.limit_top = cam_limit_1.position.y
+#		$camera.limit_right = cam_limit_2.position.x
+#		$camera.limit_bottom = cam_limit_2.position.y
+		$camera/tween.interpolate_property($camera, "limit_left", $camera.limit_left, cam_limit_1.position.x, trans_time, trans_interpolation, trans_ease)
+		$camera/tween.interpolate_property($camera, "limit_top", $camera.limit_top, cam_limit_1.position.y, trans_time, trans_interpolation, trans_ease)
+		$camera/tween.interpolate_property($camera, "limit_right", $camera.limit_right, cam_limit_2.position.x, trans_time, trans_interpolation, trans_ease)
+		$camera/tween.interpolate_property($camera, "limit_bottom", $camera.limit_bottom, cam_limit_2.position.y, trans_time, trans_interpolation, trans_ease)
+		$camera/tween.start()

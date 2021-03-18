@@ -26,6 +26,7 @@ global_data="*res://scripts/globals/global_data.gd"
 player_data="*res://scripts/globals/player_data.gd"
 ui_main="*res://scene/singletons/ui_main.tscn"
 config="*res://scripts/globals/config.gd"
+interactive_loader="*res://scripts/globals/interactive_loader.gd"
 
 [display]
 
@@ -120,5 +121,5 @@ name_casing=2
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
-environment/default_clear_color=Color( 0.407843, 0.529412, 0.721569, 1 )
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"
