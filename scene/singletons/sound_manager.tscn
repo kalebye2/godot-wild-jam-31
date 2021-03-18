@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/globals/sound_manager.gd" type="Script" id=1]
+[ext_resource path="res://audio/sfx/Over.wav" type="AudioStream" id=2]
+[ext_resource path="res://audio/sfx/Click.wav" type="AudioStream" id=3]
+
+[node name="sound_manager" type="Node"]
+script = ExtResource( 1 )
+_btn_click = NodePath("ui/click")
+_btn_focus = NodePath("ui/focus")
+
+[node name="ui" type="Node" parent="."]
+
+[node name="click" type="AudioStreamPlayer" parent="ui"]
+stream = ExtResource( 3 )
+bus = "sfx"
+
+[node name="focus" type="AudioStreamPlayer" parent="ui"]
+stream = ExtResource( 2 )
+bus = "sfx"

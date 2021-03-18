@@ -349,6 +349,7 @@ func _on_coyote_time_timeout():
 
 func _on_checkpoint_checker_area_entered(area):
 	area.get_parent().emit_signal('checkpoint_grabbed')
+	player_data.spawn_direction = direction
 
 func _on_cam_limits_changed():
 	var trans_interpolation : int = Tween.TRANS_SINE

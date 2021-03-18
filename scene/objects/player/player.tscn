@@ -235,7 +235,7 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 8
 hframes = 8
-frame = 17
+frame = 15
 __meta__ = {
 "_edit_lock_": true
 }

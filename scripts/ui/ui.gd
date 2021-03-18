@@ -15,7 +15,7 @@ func _ready() -> void:
 
 func _on_continue_pressed() -> void:
 	get_tree().paused = false
-	hide()
+	queue_free()
 
 
 

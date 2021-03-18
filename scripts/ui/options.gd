@@ -16,6 +16,10 @@ func _ready():
 	$v_box_container/items/music_slider.value = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("music"))
 	
 	$v_box_container/items2/btn_res.text = "%d x %d" % [config.res_width, config.res_height]
+	
+	if OS.has_feature("JavaScript"):
+		$v_box_container/items2.hide()
+		$v_box_container/lbl_screen.hide()
 
 
 func _on_voltar_pressed() -> void:

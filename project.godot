@@ -15,8 +15,10 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Wild Jam 31"
+config/name="Check Pointer - Wild Jam 31"
 run/main_scene="res://scene/init.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Check Pointer"
 boot_splash/image="res://images/splash/wallpaper.png"
 config/icon="res://icon.png"
 
@@ -27,6 +29,7 @@ player_data="*res://scripts/globals/player_data.gd"
 ui_main="*res://scene/singletons/ui_main.tscn"
 config="*res://scripts/globals/config.gd"
 interactive_loader="*res://scripts/globals/interactive_loader.gd"
+sound_manager="*res://scene/singletons/sound_manager.tscn"
 
 [display]
 

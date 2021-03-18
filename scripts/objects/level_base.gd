@@ -1,5 +1,7 @@
 extends Node2D
 
+var pause_menu : PackedScene = preload("res://scene/ui/ui.tscn")
+
 
 signal cam_limits_changed
 
@@ -12,27 +14,24 @@ func _ready() -> void:
 	
 	if player_data.spawn_location != null:
 		$player.position = player_data.spawn_location
+	$player.direction = player_data.spawn_direction
 
 
 func move_cam_limit(cam_limit_marker : Position2D, new_position : Vector2) -> void:
 	cam_limit_marker.position = new_position
 	emit_signal("cam_limits_changed")
 
-
-func _on_checkpoint1_checkpoint_grabbed():
-	move_cam_limit($cam_limit_left_top, $cam_new_limits.get_node("left_top/1").position)
-
-
-func _on_checkpoint2_checkpoint_grabbed():
-	move_cam_limit($cam_limit_right_bottom, $cam_new_limits.get_node("right_bottom/1").position)
-	change_player_spawn_location($checkpoints/checkpoint2.position)
-
-
 func change_player_spawn_location(pos : Vector2):
 	player_data.spawn_location = pos
 
 
 func _input(event):
+	if event.is_action_pressed("pause"):
+		if $ui.get_child_count() == 0:
+			$ui.add_child(pause_menu.instance())
+		else:
+			$ui.get_child(0).queue_free()
+	
 	if event is InputEventKey && $player.state == $player.IDLE:
 		if event.as_text() == "R":
 			get_tree().reload_current_scene()

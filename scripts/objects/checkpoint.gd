@@ -5,7 +5,6 @@ var particles : PackedScene = preload("res://scene/particles/checkpoint_particle
 
 signal checkpoint_grabbed
 
-
 func _ready():
 	connect("checkpoint_grabbed", self, "_on_checkpoint_grabbed")
 
@@ -18,6 +17,8 @@ func _on_checkpoint_grabbed():
 #		if anim_player == null || anim_player.current_animation == "idle" : break
 #		anim_player.play_backwards("checkpoint")
 		
+	
+	player_data.spawn_location = position
 	
 	for child in get_children():
 		if child.get_class() == "CPUParticles2D": child.queue_free()

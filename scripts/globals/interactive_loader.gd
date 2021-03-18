@@ -21,7 +21,7 @@ func _process(delta) -> void:
 		var resource = loader.get_resource()
 		if is_level:
 			player_data.spawn_location = resource.instance().get_node("player_spawn").position
-		print(player_data.spawn_location)
+#		print(player_data.spawn_location)
 		get_tree().change_scene_to(resource)
 		loader = null
 	elif err == OK:

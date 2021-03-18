@@ -1,6 +1,6 @@
 extends Node
 
-var path = "res://config.ini"
+var path = "user://config.ini"
 
 # window variables
 var res_width : int = ProjectSettings.get_setting("display/window/size/width")
