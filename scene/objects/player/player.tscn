@@ -245,7 +245,7 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 8
 hframes = 8
-frame = 14
+frame = 20
 __meta__ = {
 "_edit_lock_": true
 }
@@ -368,7 +368,7 @@ scale_amount_random = 0.04
 scale_amount_curve = SubResource( 38 )
 
 [node name="dead_timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 [connection signal="tree_entered" from="." to="." method="_on_player_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_player_tree_exited"]
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]

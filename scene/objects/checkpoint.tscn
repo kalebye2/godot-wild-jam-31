@@ -42,6 +42,7 @@ tracks/0/keys = {
 }
 
 [node name="checkpoint" type="Node2D"]
+z_index = -1
 script = ExtResource( 1 )
 
 [node name="sprite" type="Sprite" parent="."]

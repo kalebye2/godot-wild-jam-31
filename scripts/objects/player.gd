@@ -128,7 +128,6 @@ func _physics_process(delta) -> void:
 			$label.text = "DASHING"
 		DEAD:
 			pass
-	
 	movement.y += y_force
 	movement = move_and_slide(movement * delta * TARGET_FPS, Vector2.UP, true)
 
@@ -328,6 +327,7 @@ func dash(delta) -> void:
 
 
 func die() -> void:
+	$hurt_area/collision_shape_2d.disabled = true
 	movement = Vector2.ZERO
 	state = DEAD
 	y_force = 0
@@ -406,4 +406,5 @@ func _on_dead_timer_timeout():
 
 
 func _on_hurt_area_area_entered(area):
-	die()
+	if state != DEAD:
+		die()

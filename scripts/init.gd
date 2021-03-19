@@ -2,10 +2,16 @@ extends Node
 
 export (PackedScene) var _intro_scene
 export (PackedScene) var _next_scene
+export (PackedScene) var _debug_scene
 export (PackedScene) var _pause_menu
 
 
 func _ready() -> void:
+	var level_to_go : PackedScene
+	if OS.is_debug_build():
+		level_to_go = _debug_scene
+	else:
+		level_to_go = _next_scene
 	
 	if OS.get_screen_size().x < 1280:
 		OS.window_size.x = OS.get_screen_size().x
@@ -14,7 +20,7 @@ func _ready() -> void:
 	
 	config.load_config()
 #	_go_to_next_scene()
-	interactive_loader.go_to_level(_next_scene.get_path(), _next_scene.instance().get_node("player_spawn").position)
+	interactive_loader.go_to_level(level_to_go.get_path(), level_to_go.instance().get_node("player_spawn").position)
 
 
 func _go_to_next_scene() -> void:

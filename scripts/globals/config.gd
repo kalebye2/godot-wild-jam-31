@@ -12,7 +12,7 @@ func load_config():
 	var file = ConfigFile.new()
 	file.load(path)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("sfx"), file.get_value("Sound", "SFX", 0))
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("music"), file.get_value("Sound", "music", -7))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("music"), file.get_value("Sound", "Music", -7))
 	OS.window_fullscreen = file.get_value("Window", "FullScreen", false)
 	var resolution = Vector2(file.get_value("Window", "Width", 1280), file.get_value("Window", "Height", 720))
 	res_width = resolution.x

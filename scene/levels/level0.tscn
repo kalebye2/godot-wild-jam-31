@@ -83,6 +83,14 @@ position = Vector2( 7712, 1248 )
 [node name="spike7" parent="hazards" index="12" instance=ExtResource( 4 )]
 position = Vector2( 7776, 1248 )
 
+[node name="saw7" parent="hazards" index="13" instance=ExtResource( 3 )]
+position = Vector2( -1856, 896 )
+final_pos = Vector2( 160, 0 )
+
+[node name="saw8" parent="hazards" index="14" instance=ExtResource( 3 )]
+position = Vector2( -1536, 896 )
+final_pos = Vector2( -160, 0 )
+
 [node name="hint_gift" parent="hints" index="0" instance=ExtResource( 2 )]
 position = Vector2( 1248, 800 )
 hint_text = "Arrow keys/D-pad: move"
