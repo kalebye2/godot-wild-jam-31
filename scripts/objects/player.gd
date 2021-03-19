@@ -103,6 +103,7 @@ func _change_state(next_state : int) -> void:
 
 func _physics_process(delta) -> void:
 	$sprite.flip_h = true if direction == LEFT else false
+	$sprite.offset.x = -8 if direction == LEFT else 0
 	
 	match state:
 		IDLE:
