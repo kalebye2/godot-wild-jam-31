@@ -7,6 +7,14 @@ export (PackedScene) var _pause_menu
 
 
 func _ready() -> void:
+	
+	if _next_scene == null:
+		_next_scene = global_data.game_start.instance()
+	if _debug_scene == null:
+		_debug_scene = global_data.game_debug_start.instance()
+	
+	print(_debug_scene.get_path())
+	
 	var level_to_go : PackedScene
 	if OS.is_debug_build():
 		level_to_go = _debug_scene

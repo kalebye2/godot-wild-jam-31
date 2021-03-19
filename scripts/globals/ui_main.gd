@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var _pause_menu : PackedScene = preload("res://scene/ui/ui.tscn")
+var _pause_menu : PackedScene = preload("res://scene/ui/pause_menu.tscn")
 
 signal player_entered
 signal player_exited

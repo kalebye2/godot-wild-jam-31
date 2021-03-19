@@ -245,7 +245,7 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 8
 hframes = 8
-frame = 20
+frame = 11
 __meta__ = {
 "_edit_lock_": true
 }
@@ -279,6 +279,18 @@ margin_right = 204.0
 margin_bottom = -31.0
 theme = ExtResource( 3 )
 text = "state"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="timer_label" type="Label" parent="."]
+margin_left = -205.0
+margin_top = -50.0
+margin_right = 204.0
+margin_bottom = -31.0
+theme = ExtResource( 3 )
+text = "0:00"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

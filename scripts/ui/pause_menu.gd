@@ -51,3 +51,19 @@ func _on_ui_visibility_changed():
 		$panel/list/continue.grab_focus()
 	else:
 		get_tree().paused = false
+
+
+func _on_restart_pressed():
+	global_data.playing = false
+	player_data.reset_data()
+	var next_node : PackedScene
+	if OS.is_debug_build():
+		next_node = global_data.game_debug_start
+	else:
+		next_node = global_data.game_start
+	player_data.spawn_location = next_node.instance().get_node("player_spawn").position
+	
+	get_tree().paused = false
+	queue_free()
+	
+	interactive_loader.go_to_level(next_node.get_path(), next_node.instance().get_node("player_spawn").position)

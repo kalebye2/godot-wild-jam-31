@@ -72,9 +72,11 @@ func _ready() -> void:
 	
 	#label
 	$label.text = str(state)
+	$timer_label.text = "%d:%02d" % [player_data.minutes, player_data.seconds]
 	
 	# connect state_changed to animation_player function
 	connect("state_changed", self, "_on_state_changed")
+	player_data.connect("time_changed", self, "_on_player_data_time_changed")
 	
 
 
@@ -408,3 +410,7 @@ func _on_dead_timer_timeout():
 func _on_hurt_area_area_entered(area):
 	if state != DEAD:
 		die()
+
+
+func _on_player_data_time_changed():
+	$timer_label.text = "%d:%02d" % [player_data.minutes, player_data.seconds]

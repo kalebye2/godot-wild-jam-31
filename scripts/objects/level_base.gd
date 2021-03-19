@@ -1,6 +1,6 @@
 extends Node2D
 
-var pause_menu : PackedScene = preload("res://scene/ui/ui.tscn")
+var pause_menu : PackedScene = preload("res://scene/ui/pause_menu.tscn")
 
 
 signal cam_limits_changed
