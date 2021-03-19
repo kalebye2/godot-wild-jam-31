@@ -20,12 +20,14 @@ func _process(delta) -> void:
 	if err == ERR_FILE_EOF:
 		var resource = loader.get_resource()
 		if is_level:
-			player_data.spawn_location = resource.instance().get_node("player_spawn").position
+			if !player_data.spawn_init:
+				player_data.spawn_location = resource.instance().get_node("player_spawn").position
+				player_data.spawn_init = true
 #		print(player_data.spawn_location)
 		get_tree().change_scene_to(resource)
 		loader = null
 	elif err == OK:
-		print(err)
+		pass
 	else:
 		print("Error")
 		loader = null

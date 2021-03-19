@@ -1,8 +1,9 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scripts/objects/player.gd" type="Script" id=1]
 [ext_resource path="res://OpenToonz/Player/outputs/player.png" type="Texture" id=2]
 [ext_resource path="res://theme/main_theme.tres" type="Theme" id=3]
+[ext_resource path="res://OpenToonz/GodotWildJam31/outputs/checkpoint_particles.0001.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "dash"
@@ -228,6 +229,15 @@ extents = Vector2( 4.16345, 26.0224 )
 [sub_resource type="RectangleShape2D" id=35]
 extents = Vector2( 19.871, 29.1639 )
 
+[sub_resource type="CircleShape2D" id=36]
+radius = 60.5035
+
+[sub_resource type="RectangleShape2D" id=37]
+extents = Vector2( 6.13348, 22.9393 )
+
+[sub_resource type="Curve" id=38]
+_data = [ Vector2( 0.0142857, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.00450456 ), 0.0, 0.0, 0, 0 ]
+
 [node name="player" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
@@ -235,7 +245,7 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 8
 hframes = 8
-frame = 15
+frame = 1
 __meta__ = {
 "_edit_lock_": true
 }
@@ -257,6 +267,7 @@ active = true
 parameters/playback = SubResource( 32 )
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -5.4555, 1.34151 )
 shape = SubResource( 33 )
 
@@ -284,6 +295,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="left_wall" type="Node2D" parent="."]
+visible = false
 position = Vector2( -11.2687, 0 )
 
 [node name="area_2d" type="Area2D" parent="left_wall"]
@@ -293,6 +305,7 @@ position = Vector2( -14, 0 )
 shape = SubResource( 34 )
 
 [node name="right_wall" type="Node2D" parent="."]
+visible = false
 
 [node name="area_2d" type="Area2D" parent="right_wall"]
 position = Vector2( 14, 0 )
@@ -305,14 +318,63 @@ wait_time = 0.1
 one_shot = true
 
 [node name="checkpoint_checker" type="Area2D" parent="."]
+visible = false
 position = Vector2( -7.95966, 3.04076 )
+input_pickable = false
 collision_layer = 1024
 collision_mask = 1024
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="checkpoint_checker"]
 shape = SubResource( 35 )
+
+[node name="hint_checker" type="Area2D" parent="."]
+visible = false
+input_pickable = false
+collision_layer = 2048
+collision_mask = 2048
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="hint_checker"]
+shape = SubResource( 36 )
+
+[node name="hurt_area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="hurt_area"]
+position = Vector2( -4.82945, 7.42306 )
+shape = SubResource( 37 )
+
+[node name="dying_particles" type="CPUParticles2D" parent="."]
+visible = false
+emitting = false
+amount = 64
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.4
+local_coords = false
+texture = ExtResource( 4 )
+direction = Vector2( 0, -1 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 200.0
+initial_velocity_random = 0.8
+angular_velocity = -85.16
+angular_velocity_random = 0.21
+angle = 360.0
+angle_random = 0.8
+scale_amount = 0.3
+scale_amount_random = 0.04
+scale_amount_curve = SubResource( 38 )
+
+[node name="dead_timer" type="Timer" parent="."]
+wait_time = 3.0
 [connection signal="tree_entered" from="." to="." method="_on_player_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_player_tree_exited"]
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="coyote_time" to="." method="_on_coyote_time_timeout"]
 [connection signal="area_entered" from="checkpoint_checker" to="." method="_on_checkpoint_checker_area_entered"]
+[connection signal="area_entered" from="hint_checker" to="." method="_on_hint_checker_area_entered"]
+[connection signal="area_exited" from="hint_checker" to="." method="_on_hint_checker_area_exited"]
+[connection signal="area_entered" from="hurt_area" to="." method="_on_hurt_area_area_entered"]
+[connection signal="timeout" from="dead_timer" to="." method="_on_dead_timer_timeout"]

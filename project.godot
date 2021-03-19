@@ -115,6 +115,12 @@ dash={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="physical"
+2d_physics/layer_11="checkpoint/exit"
+2d_physics/layer_12="hint"
+
 [node]
 
 name_casing=2

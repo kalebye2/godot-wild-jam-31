@@ -44,6 +44,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="fade" type="ColorRect" parent="bg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fade_tween" type="Tween" parent="."]
+
 [node name="world_environment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 2 )
 
@@ -66,3 +76,7 @@ format = 1
 [node name="right_bottom" type="Node" parent="cam_new_limits"]
 
 [node name="exits" type="Node" parent="."]
+
+[node name="hazards" type="Node" parent="."]
+
+[node name="hints" type="Node" parent="."]

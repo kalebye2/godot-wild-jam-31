@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://OpenToonz/GodotWildJam31/outputs/hint_gift.0001.png" type="Texture" id=1]
+[ext_resource path="res://theme/main_theme.tres" type="Theme" id=2]
+[ext_resource path="res://scripts/objects/hint_gift.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 80.6214
+
+[node name="hint_gift" type="Node2D"]
+z_index = -1
+script = ExtResource( 3 )
+
+[node name="sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[node name="hint_gift_area" type="Area2D" parent="."]
+collision_layer = 2048
+collision_mask = 2048
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="hint_gift_area"]
+shape = SubResource( 1 )
+
+[node name="panel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -140.0
+margin_top = -154.584
+margin_right = 140.0
+margin_bottom = -54.5836
+rect_min_size = Vector2( 280, 100 )
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -140.0
+margin_top = -100.0
+margin_right = 140.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Hint text to put here"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tween" type="Tween" parent="."]
+[connection signal="player_entered" from="." to="." method="_on_hint_gift_player_entered"]
+[connection signal="player_exited" from="." to="." method="_on_hint_gift_player_exited"]
+[connection signal="tween_completed" from="tween" to="." method="_on_tween_tween_completed"]

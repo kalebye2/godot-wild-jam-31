@@ -32,6 +32,6 @@ func _input(event):
 		else:
 			$ui.get_child(0).queue_free()
 	
-	if event is InputEventKey && $player.state == $player.IDLE:
-		if event.as_text() == "R":
-			get_tree().reload_current_scene()
+#	if event is InputEventKey && $player.state == $player.IDLE:
+#		if event.as_text() == "R":
+#			get_tree().reload_current_scene()

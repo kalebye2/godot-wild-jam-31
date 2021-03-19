@@ -125,6 +125,8 @@ func _physics_process(delta) -> void:
 		DASHING:
 			dash(delta)
 			$label.text = "DASHING"
+		DEAD:
+			pass
 	
 	movement.y += y_force
 	movement = move_and_slide(movement * delta * TARGET_FPS, Vector2.UP, true)
@@ -133,6 +135,11 @@ func _physics_process(delta) -> void:
 func _input(event):
 	if Input.is_action_just_released("jump"):
 		pressed_jump = false
+	
+	# debug purpose: die
+#	if event is InputEventKey:
+#		if event.as_text() == "D":
+#			die()
 
 
 func idle(delta) -> void:
@@ -319,12 +326,22 @@ func dash(delta) -> void:
 	y_force = 0
 
 
-func _on_player_tree_entered() -> void:
-	ui_main.emit_signal("player_entered")
+func die() -> void:
+	movement = Vector2.ZERO
+	state = DEAD
+	y_force = 0
+	$sprite.hide()
+	$dying_particles.show()
+	$dying_particles.emitting = true
+	$dead_timer.start()
 
 
-func _on_player_tree_exited() -> void:
-	ui_main.emit_signal("player_exited")
+#func _on_player_tree_entered() -> void:
+#	ui_main.emit_signal("player_entered")
+#
+#
+#func _on_player_tree_exited() -> void:
+#	ui_main.emit_signal("player_exited")
 
 
 func _on_dash_timer_timeout() -> void:
@@ -348,8 +365,12 @@ func _on_coyote_time_timeout():
 
 
 func _on_checkpoint_checker_area_entered(area):
-	area.get_parent().emit_signal('checkpoint_grabbed')
-	player_data.spawn_direction = direction
+	if area.name == "exit_area":
+		area.get_parent().emit_signal("exiting_area")
+		player_data.spawn_direction = direction
+	else:
+		area.get_parent().emit_signal('checkpoint_grabbed')
+		player_data.spawn_direction = direction
 
 func _on_cam_limits_changed():
 	var trans_interpolation : int = Tween.TRANS_SINE
@@ -367,3 +388,21 @@ func _on_cam_limits_changed():
 		$camera/tween.interpolate_property($camera, "limit_right", $camera.limit_right, cam_limit_2.position.x, trans_time, trans_interpolation, trans_ease)
 		$camera/tween.interpolate_property($camera, "limit_bottom", $camera.limit_bottom, cam_limit_2.position.y, trans_time, trans_interpolation, trans_ease)
 		$camera/tween.start()
+
+
+func _on_hint_checker_area_entered(area):
+	if area.name == "hint_gift_area":
+		area.get_parent().emit_signal("player_entered")
+
+
+func _on_hint_checker_area_exited(area):
+	if area.name == "hint_gift_area":
+		area.get_parent().emit_signal("player_exited")
+
+
+func _on_dead_timer_timeout():
+	get_tree().reload_current_scene()
+
+
+func _on_hurt_area_area_entered(area):
+	die()
