@@ -15,10 +15,10 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Check Pointer - Wild Jam 31"
+config/name="JumpGirl - Wild Jam 31"
 run/main_scene="res://scene/init.tscn"
 config/use_custom_user_dir=true
-config/custom_user_dir_name="Check Pointer"
+config/custom_user_dir_name="JumpGirl - WJ31"
 boot_splash/image="res://images/splash/wallpaper.png"
 config/icon="res://icon.png"
 

@@ -17,10 +17,10 @@ func _ready():
 		message = "Almost sauce"
 	elif (player_data.minutes < 5 && player_data.collectibles == 7):
 		message = "Speedrunner"
-	elif player_data.minutes < 5:
+	elif player_data.minutes < 2:
 		message = "Gotta go fast"
 	else:
-		message = "Good job!"
+		message = "Game completed"
 	$label.text = message
 	
 	$oregano/oregano_label.text = "%d/%d" % [player_data.collectibles, player_data.TOTAL_COLLECTIBLES]
