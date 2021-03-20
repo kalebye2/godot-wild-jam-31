@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+var wall_particles : PackedScene = preload("res://scene/objects/player/wall_particles.tscn")
+
 const TARGET_FPS = 60
 
 var gravity : int = 30
@@ -102,6 +104,10 @@ func _change_state(next_state : int) -> void:
 		$sounds/dash.play()
 	if next_state == JUMPING:
 		$sounds/jump.play()
+	if next_state == WALL_GRABBING && prev_state != DASHING:
+		var particles = wall_particles.instance()
+		particles.emitting = true
+		add_child(particles)
 	prev_state = state
 	state = next_state
 	emit_signal("state_changed", prev_state, state)
@@ -273,6 +279,11 @@ func attack(delta) -> void:
 
 
 func wall_grab(delta) -> void:
+	
+	if $left_wall/area_2d.get_overlapping_bodies().size() > 0:
+		direction = LEFT
+	elif $left_wall/area_2d.get_overlapping_bodies().size() > 0:
+		direction = RIGHT
 	
 	if direction == LEFT:
 		$sprite.offset.x = -10

@@ -11,6 +11,8 @@ func _ready():
 		message = "Parkour Life"
 	elif player_data.collectibles == player_data.TOTAL_COLLECTIBLES:
 		message = "Oregano'd"
+	elif player_data.collectibles == player_data.TOTAL_COLLECTIBLES - 1:
+		message = "Almost sauce"
 	elif (player_data.minutes < 5 && player_data.collectibles == 7):
 		message = "Speedrunner"
 	elif player_data.minutes < 5:
