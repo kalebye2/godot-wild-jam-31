@@ -10,7 +10,7 @@ var seconds : int = 0
 var minutes : int = 0
 
 var collectibles : int = 0
-const TOTAL_COLLECTIBLES : int = 14
+const TOTAL_COLLECTIBLES : int = 7
 var dict_collectibles : Dictionary = {}
 var deaths : int = 0
 

@@ -8,8 +8,8 @@ signal cam_limits_changed
 onready var fade_color : Color = $bg/fade.color
 
 func _ready() -> void:
-	if !player_data.dict_collectibles.has(self.name):
-		player_data.dict_collectibles[self.name] = []
+	if !player_data.dict_collectibles.has(name):
+		player_data.dict_collectibles[name] = []
 	connect("cam_limits_changed", $player, "_on_cam_limits_changed")
 	$fade_tween.interpolate_property($bg/fade, "color", fade_color, Color(fade_color.r, fade_color.g, fade_color.b, 0), .5)
 	$fade_tween.start()

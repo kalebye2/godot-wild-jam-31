@@ -20,13 +20,15 @@ z_index = -1
 script = ExtResource( 1 )
 
 [node name="label" type="Label" parent="."]
-margin_left = -137.158
-margin_top = -73.1688
-margin_right = 190.842
-margin_bottom = -36.1688
+margin_left = -272.0
+margin_top = -128.0
+margin_right = 328.0
+margin_bottom = -91.0
+rect_min_size = Vector2( 500, 0 )
 custom_fonts/font = SubResource( 2 )
 text = "Your Results"
 align = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
