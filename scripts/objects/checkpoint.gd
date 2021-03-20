@@ -23,6 +23,7 @@ func _on_checkpoint_grabbed():
 	for child in get_children():
 		if child.get_class() == "CPUParticles2D": child.queue_free()
 	$animation_player.play("checkpoint")
+	$sound.play()
 	var p = particles.instance()
 	p.emitting = true
 	add_child(p)

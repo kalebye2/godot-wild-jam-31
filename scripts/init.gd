@@ -13,7 +13,7 @@ func _ready() -> void:
 	if _debug_scene == null:
 		_debug_scene = global_data.game_debug_start.instance()
 	
-	print(_debug_scene.get_path())
+#	print(_debug_scene.get_path())
 	
 	var level_to_go : PackedScene
 	if OS.is_debug_build():

@@ -2,6 +2,10 @@ extends Control
 
 
 func _ready() -> void:
+	if player_data.collectibles == 0:
+		$panel/oregano.hide()
+	$death_ui/deaths.text = "%02d" % player_data.deaths
+	$panel/oregano/label.text = "x%d" % player_data.collectibles
 	rect_pivot_offset = rect_size / 2
 	# check if is web version
 	if OS.has_feature("JavaScript"):

@@ -58,6 +58,7 @@ __meta__ = {
 environment = ExtResource( 2 )
 
 [node name="tile_map" type="TileMap" parent="."]
+z_index = -2
 tile_set = ExtResource( 1 )
 format = 1
 
@@ -80,3 +81,5 @@ format = 1
 [node name="hazards" type="Node" parent="."]
 
 [node name="hints" type="Node" parent="."]
+
+[node name="collectibles" type="Node" parent="."]

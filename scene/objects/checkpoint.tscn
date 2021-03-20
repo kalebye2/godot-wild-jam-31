@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/objects/checkpoint.gd" type="Script" id=1]
 [ext_resource path="res://OpenToonz/GodotWildJam31/outputs/checkpoint.png" type="Texture" id=2]
 [ext_resource path="res://scene/particles/checkpoint_particles.tscn" type="PackedScene" id=3]
+[ext_resource path="res://audio/sfx/1_checkpoint.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
@@ -50,11 +51,11 @@ texture = ExtResource( 2 )
 vframes = 4
 hframes = 4
 
-[node name="area_2d" type="Area2D" parent="."]
+[node name="checkpoint_area" type="Area2D" parent="."]
 collision_layer = 1024
 collision_mask = 1024
 
-[node name="collision_shape_2d" type="CollisionShape2D" parent="area_2d"]
+[node name="collision_shape_2d" type="CollisionShape2D" parent="checkpoint_area"]
 shape = SubResource( 1 )
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
@@ -63,4 +64,8 @@ anims/checkpoint = SubResource( 2 )
 anims/idle = SubResource( 3 )
 
 [node name="cpu_particles_2d" parent="." instance=ExtResource( 3 )]
-[connection signal="body_entered" from="area_2d" to="." method="_on_area_2d_body_entered"]
+
+[node name="sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+bus = "sfx"
+[connection signal="body_entered" from="checkpoint_area" to="." method="_on_area_2d_body_entered"]

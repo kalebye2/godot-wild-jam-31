@@ -98,6 +98,10 @@ func is_wall_colliding() -> bool:
 	return true if collisions > 0 else false
 
 func _change_state(next_state : int) -> void:
+	if next_state == DASHING:
+		$sounds/dash.play()
+	if next_state == JUMPING:
+		$sounds/jump.play()
 	prev_state = state
 	state = next_state
 	emit_signal("state_changed", prev_state, state)
@@ -329,6 +333,12 @@ func dash(delta) -> void:
 
 
 func die() -> void:
+	$death_ui.show()
+	$death_ui/container/deaths.text = "%02d" % player_data.deaths
+	$death_ui/tween.interpolate_property($death_ui/container, "rect_scale", Vector2.ZERO, Vector2.ONE, .3, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+	$death_ui/tween.start()
+	player_data.deaths += 1
+	$sounds/die.play()
 	$hurt_area/collision_shape_2d.disabled = true
 	movement = Vector2.ZERO
 	state = DEAD
@@ -337,6 +347,7 @@ func die() -> void:
 	$dying_particles.show()
 	$dying_particles.emitting = true
 	$dead_timer.start()
+	$death_ui/timer.start()
 
 
 #func _on_player_tree_entered() -> void:
@@ -348,6 +359,8 @@ func die() -> void:
 
 
 func _on_dash_timer_timeout() -> void:
+	if state == DEAD:
+		return
 	y_force = gravity
 	movement.x = max_speed * direction
 	_change_state(FALLING)
@@ -371,7 +384,7 @@ func _on_checkpoint_checker_area_entered(area):
 	if area.name == "exit_area":
 		area.get_parent().emit_signal("exiting_area")
 		player_data.spawn_direction = direction
-	else:
+	elif area.name == "checkpoint_area":
 		area.get_parent().emit_signal('checkpoint_grabbed')
 		player_data.spawn_direction = direction
 
@@ -414,3 +427,9 @@ func _on_hurt_area_area_entered(area):
 
 func _on_player_data_time_changed():
 	$timer_label.text = "%d:%02d" % [player_data.minutes, player_data.seconds]
+
+
+func _on_death_ui_timer_timeout():
+	$death_ui/tween.interpolate_property($death_ui/container/deaths, "rect_scale", Vector2.ZERO, Vector2.ONE, .3, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+	$death_ui/tween.start()
+	$death_ui/container/deaths.text = "%02d" % player_data.deaths

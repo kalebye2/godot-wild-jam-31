@@ -1,9 +1,13 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://scripts/objects/player.gd" type="Script" id=1]
 [ext_resource path="res://OpenToonz/Player/outputs/player.png" type="Texture" id=2]
 [ext_resource path="res://theme/main_theme.tres" type="Theme" id=3]
 [ext_resource path="res://OpenToonz/GodotWildJam31/outputs/checkpoint_particles.0001.png" type="Texture" id=4]
+[ext_resource path="res://audio/sfx/2_dash.wav" type="AudioStream" id=5]
+[ext_resource path="res://audio/sfx/5_jump.wav" type="AudioStream" id=6]
+[ext_resource path="res://audio/sfx/3_die.wav" type="AudioStream" id=7]
+[ext_resource path="res://OpenToonz/Player/outputs/player_ui_dead.0001.png" type="Texture" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "dash"
@@ -238,6 +242,15 @@ extents = Vector2( 6.13348, 22.9393 )
 [sub_resource type="Curve" id=38]
 _data = [ Vector2( 0.0142857, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.00450456 ), 0.0, 0.0, 0, 0 ]
 
+[sub_resource type="DynamicFontData" id=39]
+font_path = "res://theme/fonts/Postamt_Regular.ttf"
+
+[sub_resource type="DynamicFont" id=40]
+size = 64
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 39 )
+
 [node name="player" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
@@ -245,7 +258,7 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 8
 hframes = 8
-frame = 11
+frame = 7
 __meta__ = {
 "_edit_lock_": true
 }
@@ -381,6 +394,79 @@ scale_amount_curve = SubResource( 38 )
 
 [node name="dead_timer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="sounds" type="Node2D" parent="."]
+
+[node name="dash" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource( 5 )
+attenuation = 0.153893
+bus = "sfx"
+
+[node name="jump" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource( 6 )
+attenuation = 0.153893
+bus = "sfx"
+
+[node name="die" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource( 7 )
+attenuation = 0.153893
+bus = "sfx"
+
+[node name="death_ui" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+rect_pivot_offset = Vector2( 20, 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="HBoxContainer" parent="death_ui"]
+margin_left = -58.6919
+margin_right = 197.308
+margin_bottom = 128.0
+rect_min_size = Vector2( 256, 0 )
+rect_pivot_offset = Vector2( 128, 64 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texture_rect" type="TextureRect" parent="death_ui/container"]
+margin_left = 2.0
+margin_right = 130.0
+margin_bottom = 128.0
+rect_pivot_offset = Vector2( 64, 64 )
+texture = ExtResource( 8 )
+
+[node name="label" type="Label" parent="death_ui/container"]
+margin_left = 134.0
+margin_top = 39.0
+margin_right = 172.0
+margin_bottom = 88.0
+custom_fonts/font = SubResource( 40 )
+text = "x"
+
+[node name="deaths" type="Label" parent="death_ui/container"]
+margin_left = 176.0
+margin_top = 39.0
+margin_right = 254.0
+margin_bottom = 88.0
+rect_pivot_offset = Vector2( 39, 24 )
+custom_fonts/font = SubResource( 40 )
+text = "00"
+
+[node name="tween" type="Tween" parent="death_ui"]
+
+[node name="timer" type="Timer" parent="death_ui"]
+wait_time = 0.5
+one_shot = true
 [connection signal="tree_entered" from="." to="." method="_on_player_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_player_tree_exited"]
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
@@ -390,3 +476,4 @@ wait_time = 2.0
 [connection signal="area_exited" from="hint_checker" to="." method="_on_hint_checker_area_exited"]
 [connection signal="area_entered" from="hurt_area" to="." method="_on_hurt_area_area_entered"]
 [connection signal="timeout" from="dead_timer" to="." method="_on_dead_timer_timeout"]
+[connection signal="timeout" from="death_ui/timer" to="." method="_on_death_ui_timer_timeout"]
