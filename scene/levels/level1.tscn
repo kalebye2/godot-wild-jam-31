@@ -33,6 +33,11 @@ position = Vector2( -160, 32 )
 level_to_go = "res://scene/levels/level0.tscn"
 spawn_position = Vector2( 9232, 1248 )
 
+[node name="exit_level2" parent="exits" index="1" instance=ExtResource( 2 )]
+position = Vector2( 9952, 32 )
+level_to_go = "res://scene/levels/level_final.tscn"
+spawn_position = Vector2( -608, 288 )
+
 [node name="spike" parent="hazards" index="0" instance=ExtResource( 3 )]
 position = Vector2( 608, 224 )
 

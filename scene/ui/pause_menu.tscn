@@ -144,9 +144,9 @@ texture = ExtResource( 6 )
 [node name="label" type="Label" parent="panel/oregano"]
 margin_left = 68.0
 margin_top = 22.0
-margin_right = 105.0
+margin_right = 112.0
 margin_bottom = 41.0
-text = "x01"
+text = "1/10"
 align = 1
 
 [node name="options" parent="." instance=ExtResource( 4 )]

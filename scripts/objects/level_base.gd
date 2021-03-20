@@ -22,6 +22,11 @@ func _ready() -> void:
 	for c in $collectibles.get_children():
 		if player_data.dict_collectibles[self.name].has(c.name):
 			c.queue_free()
+	
+	if name == "level_final":
+		player_data.game_finished()
+		$player/timer_label.hide()
+		sound_manager.get_node("ui/completed").play()
 
 
 func move_cam_limit(cam_limit_marker : Position2D, new_position : Vector2) -> void:

@@ -10,7 +10,7 @@ var seconds : int = 0
 var minutes : int = 0
 
 var collectibles : int = 0
-const TOTAL_COLLECTIBLES : int = 10
+const TOTAL_COLLECTIBLES : int = 14
 var dict_collectibles : Dictionary = {}
 var deaths : int = 0
 
@@ -27,6 +27,7 @@ signal collectible_collected(level, node_name)
 
 func reset_data():
 	dict_collectibles.clear()
+	collectibles = 0
 	if OS.is_debug_build():
 		spawn_map = global_data.game_debug_start.get_path()
 	else:
@@ -61,3 +62,7 @@ func _on_timer_timeout():
 func _on_collectible_collected(level, node_name):
 	collectibles += 1
 	dict_collectibles[level].append(node_name)
+
+
+func game_finished():
+	timer.stop()

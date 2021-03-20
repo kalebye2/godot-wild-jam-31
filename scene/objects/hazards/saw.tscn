@@ -51,7 +51,7 @@ script = ExtResource( 2 )
 
 [node name="animated_sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 7 )
-frame = 2
+frame = 4
 playing = true
 
 [node name="hurt_area" type="Area2D" parent="."]
@@ -66,5 +66,7 @@ shape = SubResource( 8 )
 
 [node name="sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
+volume_db = -12.0
 autoplay = true
+bus = "sfx"
 [connection signal="tween_completed" from="tween" to="." method="_on_tween_tween_completed"]

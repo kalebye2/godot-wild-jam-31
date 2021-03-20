@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/ui/final_score.gd" type="Script" id=1]
+[ext_resource path="res://scene/objects/collectible_placeholder.tscn" type="PackedScene" id=2]
+[ext_resource path="res://theme/main_theme.tres" type="Theme" id=3]
+[ext_resource path="res://OpenToonz/Player/outputs/player_ui_dead.0001.png" type="Texture" id=4]
+[ext_resource path="res://OpenToonz/GodotWildJam31/outputs/clock.0001.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://theme/fonts/Postamt_Regular.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 1 )
+
+[node name="final_score" type="Node2D"]
+z_index = -1
+script = ExtResource( 1 )
+
+[node name="label" type="Label" parent="."]
+margin_left = -137.158
+margin_top = -73.1688
+margin_right = 190.842
+margin_bottom = -36.1688
+custom_fonts/font = SubResource( 2 )
+text = "Your Results"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="oregano" type="Node2D" parent="."]
+
+[node name="collectible_placeholder" parent="oregano" instance=ExtResource( 2 )]
+
+[node name="oregano_label" type="Label" parent="oregano"]
+margin_left = 35.1493
+margin_top = -8.18542
+margin_right = 35.1493
+margin_bottom = 5.81458
+theme = ExtResource( 3 )
+text = "50/50"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deaths" type="Node2D" parent="."]
+position = Vector2( 0, 69.817 )
+
+[node name="deaths_label" type="Label" parent="deaths"]
+margin_left = 35.1493
+margin_top = -8.18542
+margin_right = 35.1493
+margin_bottom = 5.81458
+theme = ExtResource( 3 )
+text = "x50"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="deaths"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+
+[node name="time" type="Node2D" parent="."]
+position = Vector2( 0, 132.893 )
+
+[node name="time_label" type="Label" parent="time"]
+margin_left = 35.1493
+margin_top = -8.18542
+margin_right = 35.1493
+margin_bottom = 5.81458
+theme = ExtResource( 3 )
+text = "x50"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="time"]
+texture = ExtResource( 5 )
+
+[node name="container" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

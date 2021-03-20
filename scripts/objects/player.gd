@@ -374,7 +374,7 @@ func _on_state_changed(prev_state, state) -> void:
 
 
 func _on_coyote_time_timeout():
-	if state == DASHING:
+	if state == DASHING || state == DEAD:
 		return
 	if !check_ground() && movement.y >= 0:
 		_change_state(FALLING)

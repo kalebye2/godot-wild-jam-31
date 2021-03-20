@@ -1,0 +1,152 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scene/levels/level_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://theme/main_theme.tres" type="Theme" id=2]
+[ext_resource path="res://images/splash/oregano.png" type="Texture" id=3]
+[ext_resource path="res://scene/ui/final_score.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scene/objects/hint_gift.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scene/objects/restart_game.tscn" type="PackedScene" id=6]
+
+[node name="level_final" instance=ExtResource( 1 )]
+
+[node name="tile_map" parent="." index="5"]
+tile_data = PoolIntArray( -327690, 0, 0, -327689, 0, 0, -327688, 0, 0, -327687, 0, 0, -327686, 0, 0, -327685, 0, 0, -327684, 0, 0, -327683, 0, 0, -327682, 0, 0, -327681, 0, 0, -393216, 0, 0, -393215, 0, 0, -393214, 0, 0, -393213, 0, 0, -393212, 0, 0, -393211, 0, 0, -393210, 0, 0, -393209, 0, 0, -393208, 0, 0, -393207, 0, 0, -393206, 0, 0, -393196, 0, 0, -393195, 0, 0, -393194, 0, 0, -393193, 0, 0, -393192, 0, 0, -393191, 0, 0, -393190, 0, 0, -393189, 0, 0, -393188, 0, 0, -393187, 0, 0, -393186, 0, 0, -393185, 0, 0, -262154, 0, 0, -327670, 0, 0, -327660, 0, 0, -327649, 0, 0, -196618, 0, 0, -262134, 0, 0, -262124, 0, 0, -262113, 0, 0, -131082, 0, 0, -196598, 0, 0, -196588, 0, 0, -196577, 0, 0, -65546, 0, 0, -131062, 0, 0, -131052, 0, 0, -131041, 0, 0, -10, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, -65518, 0, 0, -65517, 0, 0, -65516, 0, 0, -65505, 0, 0, 65526, 0, 0, 31, 0, 0, 131062, 0, 0, 65567, 0, 0, 196598, 0, 0, 131103, 0, 0, 262133, 0, 0, 262134, 0, 0, 196639, 0, 0, 196640, 0, 0, 196641, 0, 0, 327669, 0, 0, 262177, 0, 0, 393205, 0, 0, 393206, 0, 0, 393207, 0, 0, 393208, 0, 0, 393209, 0, 0, 393210, 0, 0, 393211, 0, 0, 393212, 0, 0, 393213, 0, 0, 393214, 0, 0, 393215, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 0, 0, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 0, 327699, 0, 0, 327700, 0, 0, 327701, 0, 0, 327702, 0, 0, 327703, 0, 0, 327704, 0, 0, 327705, 0, 0, 327706, 0, 0, 327707, 0, 0, 327708, 0, 0, 327709, 0, 0, 327710, 0, 0, 327711, 0, 0, 327712, 0, 0, 327713, 0, 0 )
+
+[node name="player_spawn" parent="." index="7"]
+position = Vector2( -608, 288 )
+
+[node name="cam_limit_left_top" parent="." index="8"]
+position = Vector2( -636.636, -377.508 )
+
+[node name="cam_limit_right_bottom" parent="." index="9"]
+position = Vector2( 2051.28, 385.437 )
+
+[node name="restart_game" parent="exits" index="0" instance=ExtResource( 6 )]
+position = Vector2( 2080, 288 )
+
+[node name="hint_gift" parent="hints" index="0" instance=ExtResource( 5 )]
+position = Vector2( 1872, 288 )
+hint_text = "Try again?"
+
+[node name="credits" type="VBoxContainer" parent="." index="15"]
+margin_left = -258.421
+margin_top = -107.339
+margin_right = 241.579
+margin_bottom = 156.661
+rect_min_size = Vector2( 500, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="thanks" type="Label" parent="credits" index="0"]
+margin_right = 500.0
+margin_bottom = 19.0
+theme = ExtResource( 2 )
+text = "Thank you for playing!"
+align = 1
+autowrap = true
+
+[node name="h_separator" type="HSeparator" parent="credits" index="1"]
+margin_top = 23.0
+margin_right = 500.0
+margin_bottom = 27.0
+
+[node name="made" type="Label" parent="credits" index="2"]
+margin_top = 31.0
+margin_right = 500.0
+margin_bottom = 50.0
+theme = ExtResource( 2 )
+text = "Made by Mateus Borges Ribeiro"
+align = 1
+autowrap = true
+
+[node name="using" type="Label" parent="credits" index="3"]
+margin_top = 54.0
+margin_right = 500.0
+margin_bottom = 73.0
+theme = ExtResource( 2 )
+text = "Using Godot Engine"
+align = 1
+autowrap = true
+
+[node name="h_separator2" type="HSeparator" parent="credits" index="4"]
+margin_top = 77.0
+margin_right = 500.0
+margin_bottom = 81.0
+
+[node name="animations" type="Label" parent="credits" index="5"]
+margin_top = 85.0
+margin_right = 500.0
+margin_bottom = 126.0
+theme = ExtResource( 2 )
+text = "Animations made in OpenToonz/Tahoma2d"
+align = 1
+autowrap = true
+
+[node name="animations2" type="Label" parent="credits" index="6"]
+margin_top = 130.0
+margin_right = 500.0
+margin_bottom = 149.0
+theme = ExtResource( 2 )
+align = 1
+autowrap = true
+
+[node name="art" type="Label" parent="credits" index="7"]
+margin_top = 153.0
+margin_right = 500.0
+margin_bottom = 172.0
+theme = ExtResource( 2 )
+text = "BG art made in Krita"
+align = 1
+autowrap = true
+
+[node name="art2" type="Label" parent="credits" index="8"]
+margin_top = 176.0
+margin_right = 500.0
+margin_bottom = 195.0
+theme = ExtResource( 2 )
+align = 1
+autowrap = true
+
+[node name="music" type="Label" parent="credits" index="9"]
+margin_top = 199.0
+margin_right = 500.0
+margin_bottom = 218.0
+theme = ExtResource( 2 )
+text = "Music made in LMMS"
+align = 1
+autowrap = true
+
+[node name="sfx" type="Label" parent="credits" index="10"]
+margin_top = 222.0
+margin_right = 500.0
+margin_bottom = 241.0
+theme = ExtResource( 2 )
+text = "SFX made with MuseScore/LMMS"
+align = 1
+autowrap = true
+
+[node name="sfx2" type="Label" parent="credits" index="11"]
+margin_top = 245.0
+margin_right = 500.0
+margin_bottom = 264.0
+theme = ExtResource( 2 )
+text = "Saw audio from freesound.org"
+align = 1
+autowrap = true
+
+[node name="oregano" type="TextureRect" parent="." index="16"]
+show_behind_parent = true
+margin_left = 413.606
+margin_top = 40.4458
+margin_right = 1017.61
+margin_bottom = 868.446
+rect_scale = Vector2( 0.315943, 0.317037 )
+texture = ExtResource( 3 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="final_score" parent="." index="17" instance=ExtResource( 4 )]
+position = Vector2( 1576.69, 43.1985 )
