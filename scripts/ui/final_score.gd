@@ -3,10 +3,12 @@ extends Node2D
 func _ready():
 	# final message to player
 	var message : String
-	if player_data.collectibles == 7 && player_data.deaths == 0:
+	if player_data.collectibles == player_data.TOTAL_COLLECTIBLES && player_data.deaths == 0 && player_data.minutes < 3:
+		message = "How did you do that?"
+	elif player_data.collectibles == 7 && player_data.deaths == 0:
 		message = "Perfect!"
 	elif player_data.collectibles == 0:
-		message = "Not even the obvious one?"
+		message = "Not even the given one?"
 	elif player_data.deaths == 0:
 		message = "Parkour Life"
 	elif player_data.collectibles == player_data.TOTAL_COLLECTIBLES:

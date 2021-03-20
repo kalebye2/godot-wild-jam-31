@@ -47,21 +47,33 @@ spawn_position = Vector2( -32, 32 )
 
 [node name="saw" parent="hazards" index="0" instance=ExtResource( 3 )]
 position = Vector2( 3392, 64 )
+final_pos = Vector2( 0, 0 )
+tween_time = 2.0
 
 [node name="saw2" parent="hazards" index="1" instance=ExtResource( 3 )]
 position = Vector2( 8336, 1216 )
+final_pos = Vector2( 0, 0 )
+tween_time = 2.0
 
 [node name="saw3" parent="hazards" index="2" instance=ExtResource( 3 )]
 position = Vector2( 8336, 1088 )
+final_pos = Vector2( 0, 0 )
+tween_time = 2.0
 
 [node name="saw4" parent="hazards" index="3" instance=ExtResource( 3 )]
 position = Vector2( 8336, 960 )
+final_pos = Vector2( 0, 0 )
+tween_time = 2.0
 
 [node name="saw5" parent="hazards" index="4" instance=ExtResource( 3 )]
 position = Vector2( 8336, 832 )
+final_pos = Vector2( 0, 0 )
+tween_time = 2.0
 
 [node name="saw6" parent="hazards" index="5" instance=ExtResource( 3 )]
 position = Vector2( 8336, 704 )
+final_pos = Vector2( 0, 0 )
+tween_time = 2.0
 
 [node name="spike" parent="hazards" index="6" instance=ExtResource( 4 )]
 position = Vector2( 7328, 1248 )
@@ -87,10 +99,12 @@ position = Vector2( 7776, 1248 )
 [node name="saw7" parent="hazards" index="13" instance=ExtResource( 3 )]
 position = Vector2( -1856, 896 )
 final_pos = Vector2( 160, 0 )
+tween_time = 2.0
 
 [node name="saw8" parent="hazards" index="14" instance=ExtResource( 3 )]
 position = Vector2( -1536, 896 )
 final_pos = Vector2( -160, 0 )
+tween_time = 2.0
 
 [node name="hint_gift" parent="hints" index="0" instance=ExtResource( 2 )]
 position = Vector2( 1248, 800 )
@@ -105,7 +119,7 @@ position = Vector2( 5168, 800 )
 hint_text = "Maybe there's something \"up\"."
 
 [node name="collectible" parent="collectibles" index="0" instance=ExtResource( 7 )]
-position = Vector2( -1696, 1152 )
+position = Vector2( -1696, 1057.71 )
 
 [node name="collectible2" parent="collectibles" index="1" instance=ExtResource( 7 )]
 position = Vector2( 5792, 144 )
