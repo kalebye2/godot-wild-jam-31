@@ -224,7 +224,7 @@ func jump(delta) -> void:
 	wall_slip = 0
 #	if check_ground():
 #		apply_jump()
-	if movement.y > 0:
+	if movement.y > 0 || check_ground():
 		_change_state(FALLING)
 	
 	if Input.is_action_pressed("walk_left"):
