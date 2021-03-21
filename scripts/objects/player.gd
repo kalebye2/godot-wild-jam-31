@@ -344,7 +344,7 @@ func dash(delta) -> void:
 
 
 func die() -> void:
-	$death_ui.show()
+	$death_ui/container.show()
 	$death_ui/container/deaths.text = "%02d" % player_data.deaths
 	$death_ui/tween.interpolate_property($death_ui/container, "rect_scale", Vector2.ZERO, Vector2.ONE, .3, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
 	$death_ui/tween.start()

@@ -621,10 +621,10 @@
     <fxnodes>
       <terminal>
         <fxnode>
-          <Toonz_columnFx id='6'/>
+          <Toonz_columnFx id='4'/>
         </fxnode>
         <fxnode>
-          <Toonz_columnFx id='4'/>
+          <Toonz_columnFx id='6'/>
         </fxnode>
         </terminal>
       <xsheet>
@@ -691,5 +691,6 @@
     "| #    DATE:       Time:   MACHINE:    USER:           |"
     "| #1   18 Mar 21   10:31                |"
     "| #2   18 Mar 21   14:59                |"
+    "| #3   20 Mar 21   22:37                |"
   </history>
   </tnz>

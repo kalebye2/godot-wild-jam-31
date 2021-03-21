@@ -70,6 +70,9 @@
           25 25 
         </timestretch>
         <formatsProperties>
+          <formatProperties ext="png">
+            <property name="Alpha Channel" type="bool" value="true"/>
+            </formatProperties>
           <formatProperties ext="tif">
             <property name="Byte Ordering" type="enum" value="Mac">
               <item value="IBM PC"/>
@@ -580,5 +583,6 @@
   <history>
     "| #    DATE:       Time:   MACHINE:    USER:           |"
     "| #1   18 Mar 21   20:28                |"
+    "| #2   20 Mar 21   22:13                |"
   </history>
   </tnz>
