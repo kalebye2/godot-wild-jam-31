@@ -16,20 +16,20 @@ _global_script_class_icons={
 [application]
 
 config/name="JumpGirl - Wild Jam 31"
-run/main_scene="res://scene/init.tscn"
+run/main_scene="res://src/init.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="JumpGirl - WJ31"
-boot_splash/image="res://images/splash/wallpaper.png"
+boot_splash/image="res://assets/images/splash/wallpaper.png"
 config/icon="res://icon.png"
 
 [autoload]
 
-global_data="*res://scripts/globals/global_data.gd"
-player_data="*res://scripts/globals/player_data.gd"
-ui_main="*res://scene/singletons/ui_main.tscn"
-config="*res://scripts/globals/config.gd"
-interactive_loader="*res://scripts/globals/interactive_loader.gd"
-sound_manager="*res://scene/singletons/sound_manager.tscn"
+global_data="*res://src/globals/global_data.gd"
+player_data="*res://src/globals/player_data.gd"
+ui_main="*res://src/singletons/ui_main.tscn"
+config="*res://src/globals/config.gd"
+interactive_loader="*res://src/globals/interactive_loader.gd"
+sound_manager="*res://src/singletons/sound_manager.tscn"
 
 [display]
 

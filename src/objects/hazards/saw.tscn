@@ -1,0 +1,75 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://OpenToonz/GodotWildJam31/outputs/saw.png" type="Texture" id=1]
+[ext_resource path="res://src/objects/hazards/saw.gd" type="Script" id=2]
+[ext_resource path="res://assets/audio/sfx/saw.wav" type="AudioStream" id=3]
+
+
+
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 132, 0, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 264, 0, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 132, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 132, 132, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 264, 132, 132, 132 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 24.0
+} ]
+
+[sub_resource type="CircleShape2D" id=8]
+radius = 61.1806
+
+[node name="saw" type="Node2D"]
+z_index = -1
+script = ExtResource( 2 )
+
+[node name="animated_sprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 7 )
+frame = 4
+playing = true
+
+[node name="hurt_area" type="Area2D" parent="."]
+input_pickable = false
+collision_layer = 2
+collision_mask = 2
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="hurt_area"]
+shape = SubResource( 8 )
+
+[node name="tween" type="Tween" parent="."]
+
+[node name="sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -12.0
+autoplay = true
+bus = "sfx"
+[connection signal="tween_completed" from="tween" to="." method="_on_tween_tween_completed"]

@@ -1,0 +1,183 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/ui/options.gd" type="Script" id=1]
+[ext_resource path="res://src/ui/button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/ui/slider.tscn" type="PackedScene" id=3]
+
+
+
+[node name="options" type="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -244.0
+margin_top = -244.0
+margin_right = 244.0
+margin_bottom = 244.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="v_box_container" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -187.0
+margin_top = -187.0
+margin_right = 188.0
+margin_bottom = 188.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lbl_audio" type="Label" parent="v_box_container"]
+margin_right = 375.0
+margin_bottom = 14.0
+text = "Audio"
+align = 1
+
+[node name="items" type="GridContainer" parent="v_box_container"]
+margin_top = 18.0
+margin_right = 375.0
+margin_bottom = 54.0
+columns = 2
+
+[node name="lbl_sfx" type="Label" parent="v_box_container/items"]
+margin_top = 1.0
+margin_right = 185.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+text = "sfx"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sfx_slider" parent="v_box_container/items" instance=ExtResource( 3 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 189.0
+margin_top = 0.0
+margin_right = 374.0
+margin_bottom = 16.0
+focus_neighbour_top = NodePath("../../voltar")
+focus_previous = NodePath("../../voltar")
+
+[node name="lbl_music" type="Label" parent="v_box_container/items"]
+margin_top = 21.0
+margin_right = 185.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+text = "music"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="music_slider" parent="v_box_container/items" instance=ExtResource( 3 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 189.0
+margin_top = 20.0
+margin_right = 374.0
+margin_bottom = 36.0
+
+[node name="h_separator" type="HSeparator" parent="v_box_container"]
+margin_top = 58.0
+margin_right = 375.0
+margin_bottom = 62.0
+
+[node name="lbl_screen" type="Label" parent="v_box_container"]
+margin_top = 66.0
+margin_right = 375.0
+margin_bottom = 80.0
+text = "Display"
+align = 1
+
+[node name="items2" type="GridContainer" parent="v_box_container"]
+margin_top = 84.0
+margin_right = 375.0
+margin_bottom = 128.0
+columns = 2
+
+[node name="label" type="Label" parent="v_box_container/items2"]
+margin_top = 3.0
+margin_right = 185.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "fullscreen"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" parent="v_box_container/items2" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 189.0
+margin_top = 0.0
+margin_right = 374.0
+margin_bottom = 20.0
+focus_neighbour_bottom = NodePath("../btn_res")
+focus_next = NodePath("../btn_res")
+size_flags_horizontal = 3
+toggle_mode = true
+text = "off"
+max_scale = Vector2( 1.05, 1.05 )
+
+[node name="label2" type="Label" parent="v_box_container/items2"]
+margin_top = 27.0
+margin_right = 185.0
+margin_bottom = 41.0
+size_flags_horizontal = 3
+text = "resolution"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_res" parent="v_box_container/items2" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 189.0
+margin_top = 24.0
+margin_right = 374.0
+margin_bottom = 44.0
+focus_neighbour_bottom = NodePath("../../voltar")
+focus_next = NodePath("../../voltar")
+size_flags_horizontal = 3
+text = "1x"
+max_scale = Vector2( 1.05, 1.05 )
+
+[node name="voltar" parent="v_box_container" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 132.0
+margin_right = 375.0
+margin_bottom = 152.0
+focus_neighbour_top = NodePath("../items2/btn_res")
+focus_neighbour_bottom = NodePath("../items/sfx_slider")
+focus_previous = NodePath("../items2/btn_res")
+text = "Voltar"
+
+[node name="tween" type="Tween" parent="."]
+[connection signal="visibility_changed" from="." to="." method="_on_options_visibility_changed"]
+[connection signal="value_changed" from="v_box_container/items/sfx_slider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="v_box_container/items/music_slider" to="." method="_on_music_slider_value_changed"]
+[connection signal="toggled" from="v_box_container/items2/button" to="." method="_on_button_toggled"]
+[connection signal="pressed" from="v_box_container/items2/btn_res" to="." method="_on_btn_res_pressed"]
+[connection signal="pressed" from="v_box_container/voltar" to="." method="_on_voltar_pressed"]

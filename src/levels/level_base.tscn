@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://resources/tilesets/main_tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://resources/environments/main_environment.tres" type="Environment" id=2]
+[ext_resource path="res://src/objects/player/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/levels/level_base.gd" type="Script" id=4]
+[ext_resource path="res://assets/images/tileset/skyBG/sky.PNG" type="Texture" id=5]
+[ext_resource path="res://assets/images/tileset/skyBG/clouds.PNG" type="Texture" id=6]
+
+[node name="level" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="checkpoints" type="Node" parent="."]
+
+[node name="ui" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="fade" type="CanvasLayer" parent="."]
+
+[node name="fade" type="ColorRect" parent="fade"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg" type="ParallaxBackground" parent="."]
+
+[node name="bg1" type="ParallaxLayer" parent="bg"]
+motion_scale = Vector2( 0, 0 )
+
+[node name="tex" type="Sprite" parent="bg/bg1"]
+modulate = Color( 0.133333, 0.0509804, 0.2, 1 )
+texture = ExtResource( 5 )
+
+[node name="bg2" type="ParallaxLayer" parent="bg"]
+motion_scale = Vector2( 0.1, 0.1 )
+motion_mirroring = Vector2( 1280, 0 )
+
+[node name="tex" type="Sprite" parent="bg/bg2"]
+texture = ExtResource( 6 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 8960, 720 )
+
+[node name="bg3" type="ParallaxLayer" parent="bg"]
+motion_mirroring = Vector2( 1280, 0 )
+
+[node name="tex" type="Sprite" parent="bg/bg3"]
+
+[node name="fade_tween" type="Tween" parent="."]
+
+[node name="world_environment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 2 )
+
+[node name="tile_map" type="TileMap" parent="."]
+z_index = -2
+tile_set = ExtResource( 1 )
+format = 1
+
+[node name="player" parent="." instance=ExtResource( 3 )]
+
+[node name="player_spawn" type="Position2D" parent="."]
+
+[node name="cam_limit_left_top" type="Position2D" parent="."]
+
+[node name="cam_limit_right_bottom" type="Position2D" parent="."]
+
+[node name="cam_new_limits" type="Node" parent="."]
+
+[node name="left_top" type="Node" parent="cam_new_limits"]
+
+[node name="right_bottom" type="Node" parent="cam_new_limits"]
+
+[node name="exits" type="Node" parent="."]
+
+[node name="hazards" type="Node" parent="."]
+
+[node name="hints" type="Node" parent="."]
+
+[node name="collectibles" type="Node" parent="."]

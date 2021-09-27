@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://OpenToonz/GodotWildJam31/outputs/checkpoint_particles.0001.png" type="Texture" id=1]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0.00857142, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0315316 ), 0.0, 0.0, 0, 0 ]
+
+[node name="cpu_particles_2d" type="CPUParticles2D"]
+emitting = false
+one_shot = true
+explosiveness = 0.84
+lifetime_randomness = 0.44
+texture = ExtResource( 1 )
+emission_shape = 2
+emission_rect_extents = Vector2( 32, 32 )
+direction = Vector2( 0, -1 )
+initial_velocity = 121.21
+initial_velocity_random = 0.76
+angular_velocity = 50.0
+angular_velocity_random = 0.68
+radial_accel = 10.0
+scale_amount = 0.2
+scale_amount_random = 0.44
+scale_amount_curve = SubResource( 1 )

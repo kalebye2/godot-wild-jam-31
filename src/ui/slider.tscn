@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/ui/slider.gd" type="Script" id=1]
+[ext_resource path="res://assets/audio/sfx/Over.wav" type="AudioStream" id=2]
+[ext_resource path="res://assets/audio/sfx/Click.wav" type="AudioStream" id=3]
+
+
+
+
+[node name="slider" type="HSlider"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -92.5
+margin_top = -8.0
+margin_right = 92.5
+margin_bottom = 8.0
+size_flags_horizontal = 3
+min_value = -80.0
+max_value = 0.0
+step = 4.0
+tick_count = 21
+ticks_on_borders = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tween" type="Tween" parent="."]
+
+[node name="sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -24.0
+bus = "sfx"
+
+[node name="value" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -24.0
+bus = "sfx"
+[connection signal="focus_entered" from="." to="." method="_on_sfx_slider_focus_entered"]
+[connection signal="value_changed" from="." to="." method="_on_slider_value_changed"]

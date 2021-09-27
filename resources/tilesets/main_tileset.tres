@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=10 format=2]
 
-[ext_resource path="res://images/tileset/main_tileset.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/tileset/main_tileset.png" type="Texture" id=1]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://OpenToonz/GodotWildJam31/outputs/checkpoint_particles.0001.png" type="Texture" id=1]
+[ext_resource path="res://src/objects/exit_level.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[node name="exit_level" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="exit_area" type="Area2D" parent="."]
+collision_layer = 1024
+collision_mask = 1024
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="exit_area"]
+shape = SubResource( 1 )
+
+[node name="sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+[connection signal="exiting_area" from="." to="." method="_on_exit_level_exiting_area"]
